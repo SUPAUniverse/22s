@@ -1,0 +1,655 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>22s — Choose the brands you'd back for free</title>
+<meta name="description" content="22s is a creator-led agency. Build your profile, choose the six brands you'd back for free, and get ranked. We take your passion to the brands. Clients don't search talent — they're told who chose them. Passion first.">
+<meta name="theme-color" content="#15100E">
+<meta name="author" content="Matthew Peltier">
+<link rel="canonical" href="https://passionorpeltier.com/">
+
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="22s">
+<meta property="og:title" content="22s — Choose the brands you'd back for free">
+<meta property="og:description" content="Build your profile, choose your top six brands, get ranked. We take your passion to the brands.">
+<meta property="og:url" content="https://passionorpeltier.com/">
+<meta property="og:image" content="https://passionorpeltier.com/og-image.png">
+<meta property="og:image:alt" content="22s — a creator-led agency">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="22s — Choose the brands you'd back for free">
+<meta name="twitter:description" content="Build your profile, choose your top six brands, get ranked. We take your passion to the brands.">
+<meta name="twitter:image" content="https://passionorpeltier.com/og-image.png">
+
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%2315100E'/%3E%3Ccircle cx='16' cy='16' r='8' fill='none' stroke='%23FF3A20' stroke-width='3'/%3E%3Ccircle cx='16' cy='16' r='2.5' fill='%23FF3A20'/%3E%3C/svg%3E">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=Hanken+Grotesk:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="supabase-config.js"></script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "22s",
+  "alternateName": "22s Creator Agency",
+  "description": "A creator-led influencer agency. Creators build a profile and choose the six brands they would back for free; the agency takes those partnerships to the brands.",
+  "slogan": "Passion first.",
+  "url": "https://passionorpeltier.com/",
+  "email": "Passion@supa.social",
+  "founder": { "@type": "Person", "name": "Matthew Peltier" },
+  "areaServed": "GB",
+  "knowsAbout": ["influencer marketing","creator partnerships","branded content","production"]
+}
+</script>
+
+<style>
+  :root{
+    --ink:#15100E;--ink-2:#1D1613;--ink-3:#261D18;
+    --bone:#F0E7D9;--bone-dim:#B3A593;
+    --scarlet:#FF3A20;--scarlet-deep:#C92410;--oxblood:#6E241B;--paper:#EBE2D3;
+    --gold:#E8B04B;
+    --display:'Bricolage Grotesque',system-ui,sans-serif;
+    --body:'Hanken Grotesk',system-ui,sans-serif;
+    --mono:'Space Mono',ui-monospace,monospace;
+    --maxw:1240px;--gut:clamp(20px,5vw,64px);
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  @media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}}
+  body{margin:0;background:var(--ink);color:var(--bone);font-family:var(--body);font-size:18px;line-height:1.55;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  body::after{content:"";position:fixed;inset:0;z-index:9999;pointer-events:none;opacity:.05;mix-blend-mode:overlay;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+  a{color:inherit;text-decoration:none}
+  img{max-width:100%;display:block}
+  .skip{position:absolute;left:-999px;top:0;background:var(--scarlet);color:#1a0c08;font-family:var(--mono);font-size:13px;padding:10px 16px;z-index:1000}
+  .skip:focus{left:0}
+  :focus-visible{outline:2px solid var(--scarlet);outline-offset:3px}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 var(--gut)}
+  .eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--scarlet);display:flex;align-items:center;gap:10px}
+  .eyebrow::before{content:"";width:26px;height:1px;background:var(--scarlet);display:inline-block}
+  h1,h2,h3{font-family:var(--display);font-weight:800;line-height:.98;margin:0;letter-spacing:-.02em}
+  .display-xl{font-size:clamp(48px,10vw,138px)}
+  .display-l{font-size:clamp(38px,7vw,84px)}
+  .display-m{font-size:clamp(26px,4vw,46px)}
+
+  .logo{display:inline-flex;align-items:center;gap:11px;font-family:var(--display);font-weight:800;font-size:22px;letter-spacing:-.03em;color:var(--bone)}
+  .logo b{color:var(--scarlet)}
+  .logo svg{flex:none}
+
+  /* nav */
+  .nav{position:sticky;top:0;z-index:100;background:color-mix(in srgb,var(--ink) 86%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid rgba(240,231,217,.10)}
+  .nav-inner{display:flex;align-items:center;justify-content:space-between;height:70px}
+  .nav-links{display:flex;gap:26px;align-items:center}
+  .nav-links a{font-family:var(--mono);font-size:13px;letter-spacing:.04em;color:var(--bone-dim);transition:color .2s}
+  .nav-links a:hover,.nav-links a:focus-visible{color:var(--bone)}
+  .btn{font-family:var(--mono);font-size:13px;letter-spacing:.04em;background:var(--scarlet);color:#1a0c08;font-weight:700;padding:11px 18px;border-radius:2px;border:0;cursor:pointer;transition:transform .15s,background .2s;display:inline-block}
+  .btn:hover,.btn:focus-visible{background:#ff5238;transform:translateY(-1px)}
+  .btn-ghost{background:transparent;color:var(--bone);border:1px solid rgba(240,231,217,.30)}
+  .btn-ghost:hover,.btn-ghost:focus-visible{background:rgba(240,231,217,.06);border-color:var(--bone)}
+  .nav .btn{padding:9px 16px}
+  .menu-btn{display:none;background:none;border:0;cursor:pointer;flex-direction:column;gap:5px;padding:8px}
+  .menu-btn span{display:block;width:24px;height:2px;background:var(--bone);transition:.25s}
+  .menu-btn[aria-expanded="true"] span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+  .menu-btn[aria-expanded="true"] span:nth-child(2){opacity:0}
+  .menu-btn[aria-expanded="true"] span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+  @media(max-width:820px){
+    .menu-btn{display:flex}
+    .nav-links{position:absolute;top:70px;left:0;right:0;flex-direction:column;align-items:flex-start;gap:0;background:var(--ink-2);border-bottom:1px solid rgba(240,231,217,.12);max-height:0;overflow:hidden;transition:max-height .3s ease}
+    .nav-links.open{max-height:360px}
+    .nav-links a{width:100%;padding:16px var(--gut);border-top:1px solid rgba(240,231,217,.08);font-size:15px}
+    .nav-links .btn{margin:14px var(--gut);width:calc(100% - (2 * var(--gut)));text-align:center}
+  }
+
+  /* hero */
+  .hero{padding:clamp(48px,9vh,104px) 0 30px}
+  .hero h1{margin:16px 0 0}
+  .hero h1 .ink-line{display:block}
+  .hero .lede{max-width:600px;margin:28px 0 0;color:var(--bone-dim);font-size:clamp(17px,2.2vw,21px)}
+  .hero .lede b{color:var(--bone);font-weight:600}
+  .fork{display:flex;gap:14px;flex-wrap:wrap;margin-top:34px;align-items:center}
+  .fork .micro{font-family:var(--mono);font-size:12px;color:var(--bone-dim)}
+
+  /* marquee */
+  .marquee{border-top:1px solid rgba(240,231,217,.12);border-bottom:1px solid rgba(240,231,217,.12);overflow:hidden;white-space:nowrap;padding:16px 0;margin-top:38px}
+  .marquee .track{display:inline-block;animation:scroll 38s linear infinite}
+  .marquee:hover .track{animation-play-state:paused}
+  .marquee span{font-family:var(--display);font-weight:700;font-size:clamp(20px,3vw,32px);letter-spacing:-.01em;padding:0 26px;color:var(--bone)}
+  .marquee span i{color:var(--scarlet);font-style:normal}
+  @keyframes scroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+  /* exclusivity band */
+  .excl{padding:clamp(40px,7vh,72px) 0;border-bottom:1px solid rgba(240,231,217,.10)}
+  .excl .row{display:flex;gap:clamp(20px,4vw,48px);flex-wrap:wrap;align-items:flex-start}
+  .excl .lead2{font-family:var(--display);font-weight:800;font-size:clamp(20px,2.8vw,30px);letter-spacing:-.02em;line-height:1.1;flex:1 1 320px;min-width:280px}
+  .excl .lead2 em{color:var(--scarlet);font-style:normal}
+  .excl .notes{flex:1 1 320px;min-width:280px;display:grid;gap:14px}
+  .excl .notes div{font-family:var(--mono);font-size:12.5px;line-height:1.6;color:var(--bone-dim);padding-left:16px;border-left:1px solid rgba(255,58,32,.5)}
+  .excl .notes div b{color:var(--bone);font-weight:700}
+
+  section{padding:clamp(60px,11vh,120px) 0}
+  .sec-head{max-width:780px;margin-bottom:46px}
+  .sec-head h2{margin-top:14px}
+  .sec-head p{color:var(--bone-dim);margin:18px 0 0;max-width:600px}
+
+  /* steps (creator flow) */
+  .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:rgba(240,231,217,.12);border:1px solid rgba(240,231,217,.12)}
+  @media(max-width:860px){.steps{grid-template-columns:1fr 1fr}}
+  @media(max-width:520px){.steps{grid-template-columns:1fr}}
+  .step{background:var(--ink);padding:30px 26px 36px;min-height:210px;display:flex;flex-direction:column}
+  .step .no{font-family:var(--mono);font-size:12px;color:var(--scarlet);letter-spacing:.1em}
+  .step h3{font-size:21px;margin:16px 0 12px;font-weight:700}
+  .step p{margin:0;color:var(--bone-dim);font-size:15px;line-height:1.5}
+
+  /* TOP SIX centerpiece */
+  .topsix{background:var(--ink-2);border-top:1px solid rgba(240,231,217,.10);border-bottom:1px solid rgba(240,231,217,.10)}
+  .topsix .big{font-size:clamp(40px,8vw,104px);line-height:.95;margin:14px 0 0}
+  .topsix .big em{color:var(--scarlet);font-style:normal}
+  .topsix .sub{color:var(--bone-dim);max-width:560px;margin:24px 0 0;font-size:clamp(16px,2vw,20px)}
+  .six-demo{margin-top:46px;display:grid;grid-template-columns:repeat(6,1fr);gap:10px}
+  @media(max-width:880px){.six-demo{grid-template-columns:repeat(3,1fr)}}
+  @media(max-width:480px){.six-demo{grid-template-columns:repeat(2,1fr)}}
+  .slot{aspect-ratio:1;border:1px dashed rgba(240,231,217,.25);border-radius:6px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;background:var(--ink);transition:.25s;position:relative}
+  .slot .rank{position:absolute;top:8px;left:10px;font-family:var(--mono);font-size:11px;color:var(--bone-dim)}
+  .slot .pick{font-family:var(--display);font-weight:800;font-size:clamp(15px,1.7vw,20px)}
+  .slot .st{font-family:var(--mono);font-size:9.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--bone-dim)}
+  .slot.filled{border-style:solid;border-color:rgba(255,58,32,.45);background:radial-gradient(120% 120% at 30% 10%,#33170f,var(--ink))}
+  .slot.filled .st{color:var(--scarlet)}
+  .slot.empty .pick{color:var(--bone-dim);opacity:.6}
+
+  /* RANKING BOARD */
+  .board-head{display:flex;align-items:flex-end;justify-content:space-between;gap:20px;flex-wrap:wrap;margin-bottom:26px}
+  .filters{display:flex;gap:8px;flex-wrap:wrap}
+  .chip{font-family:var(--mono);font-size:12px;letter-spacing:.04em;color:var(--bone-dim);background:var(--ink-2);border:1px solid rgba(240,231,217,.14);border-radius:100px;padding:8px 14px;cursor:pointer;transition:.2s}
+  .chip:hover{color:var(--bone);border-color:rgba(240,231,217,.3)}
+  .chip.active{background:var(--scarlet);color:#1a0c08;border-color:var(--scarlet);font-weight:700}
+  .board{border:1px solid rgba(240,231,217,.12);border-radius:6px;overflow:hidden}
+  .board .rowh,.board .row{display:grid;grid-template-columns:64px 1.6fr 1fr 90px 90px 120px;align-items:center;gap:12px;padding:14px 18px}
+  .board .rowh{background:var(--ink-2);font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--bone-dim);border-bottom:1px solid rgba(240,231,217,.12)}
+  .board .row{border-bottom:1px solid rgba(240,231,217,.08);transition:background .2s}
+  .board .row:last-child{border-bottom:0}
+  .board .row:hover{background:var(--ink-2)}
+  .board .rk{font-family:var(--display);font-weight:800;font-size:22px}
+  .board .row:nth-child(2) .rk{color:var(--scarlet)}
+  .board .row:nth-child(3) .rk,.board .row:nth-child(4) .rk{color:var(--gold)}
+  .who{display:flex;align-items:center;gap:12px;min-width:0}
+  .who .av{width:40px;height:40px;border-radius:50%;flex:none;background:radial-gradient(120% 120% at 30% 20%,#5a241a,#15100E);border:1px solid rgba(240,231,217,.15)}
+  .who .nm{font-family:var(--display);font-weight:800;font-size:17px;line-height:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:flex;align-items:center;gap:6px}
+  .who .nm .ver{flex:none;display:inline-grid;place-items:center;width:15px;height:15px;border-radius:50%;background:var(--scarlet);color:#1a0c08;font-size:9px;font-weight:700;font-family:var(--mono)}
+  .who .nm .ver svg{width:9px;height:9px}
+  .who .hd{font-family:var(--mono);font-size:11px;color:var(--bone-dim);margin-top:4px}
+  .cat{font-family:var(--mono);font-size:12px;color:var(--bone-dim)}
+  .num{font-family:var(--mono);font-size:13px;color:var(--bone)}
+  .score{font-family:var(--display);font-weight:800;font-size:20px;color:var(--scarlet);text-align:right}
+  .score small{display:block;font-family:var(--mono);font-weight:400;font-size:9.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--bone-dim)}
+  .board-foot{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;margin-top:18px}
+  .board-foot .note{font-family:var(--mono);font-size:11.5px;color:var(--bone-dim)}
+  @media(max-width:760px){
+    .board .rowh{display:none}
+    .board .row{grid-template-columns:42px 1fr auto;grid-template-areas:"rk who score" "rk meta score";row-gap:6px;padding:14px}
+    .board .rk{grid-area:rk}.who{grid-area:who}.score{grid-area:score}
+    .board .cat{grid-area:meta;font-size:11px}
+    .board .num{display:none}
+  }
+
+  /* score formula */
+  .formula{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}
+  .formula .f{font-family:var(--mono);font-size:11.5px;color:var(--bone);background:var(--ink-2);border:1px solid rgba(240,231,217,.12);border-radius:100px;padding:8px 14px}
+  .formula .f b{color:var(--scarlet)}
+
+  /* proof band */
+  .proof{background:var(--ink-2);border-top:1px solid rgba(240,231,217,.10);border-bottom:1px solid rgba(240,231,217,.10)}
+  .proof-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(24px,5vw,64px);align-items:center}
+  @media(max-width:760px){.proof-grid{grid-template-columns:1fr;gap:34px}}
+  .proof .vs{display:flex;align-items:flex-end;gap:18px;flex-wrap:wrap}
+  .proof .col .k{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--bone-dim);margin-bottom:8px}
+  .proof .col .v{font-family:var(--display);font-weight:800;letter-spacing:-.03em;line-height:.9}
+  .proof .col.dim .v{font-size:clamp(34px,5vw,52px);color:var(--bone-dim)}
+  .proof .col.hot .v{font-size:clamp(56px,10vw,104px);color:var(--scarlet)}
+  .proof .arrow{font-family:var(--mono);color:var(--bone-dim);font-size:20px;padding-bottom:14px}
+  .proof .claim{font-family:var(--display);font-weight:800;font-size:clamp(22px,3vw,34px);line-height:1.05;letter-spacing:-.02em;max-width:18ch}
+  .proof .claim em{color:var(--scarlet);font-style:normal}
+  .proof .sub{color:var(--bone-dim);margin-top:16px;max-width:42ch;font-size:15px}
+
+  /* brand payoff */
+  .payoff{background:var(--paper);color:#1a0c08}
+  .payoff .eyebrow{color:var(--scarlet)}
+  .payoff .eyebrow::before{background:var(--scarlet)}
+  .payoff h2{color:#1a0c08;font-size:clamp(34px,6vw,72px)}
+  .payoff .lead{max-width:620px;margin:24px 0 0;color:#4a3f34;font-size:clamp(17px,2.2vw,21px)}
+  .payoff .lead b{color:#1a0c08;font-weight:700}
+  .payoff .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:46px}
+  @media(max-width:780px){.payoff .cards{grid-template-columns:1fr}}
+  .payoff .card{background:#fff;border-radius:6px;padding:28px}
+  .payoff .card .n{font-family:var(--mono);font-size:12px;color:var(--scarlet);letter-spacing:.08em}
+  .payoff .card h3{color:#1a0c08;font-size:21px;margin:14px 0 10px}
+  .payoff .card p{margin:0;color:#5a4f44;font-size:15px}
+  .payoff .row{margin-top:40px}
+  .payoff .btn-dark{background:var(--ink);color:var(--bone)}
+  .payoff .btn-dark:hover{background:#2a1f1a}
+
+  /* manifesto */
+  .manifesto{background:var(--scarlet);color:#1a0c08}
+  .manifesto .eyebrow{color:#1a0c08}.manifesto .eyebrow::before{background:#1a0c08}
+  .manifesto h2{font-size:clamp(44px,9vw,116px);margin:18px 0 0;color:#1a0c08}
+  .manifesto .body{max-width:620px;margin:32px 0 0;font-size:clamp(18px,2.4vw,23px);line-height:1.5;color:#2a120c;font-weight:500}
+  .manifesto .sign{font-family:var(--mono);font-size:13px;letter-spacing:.06em;margin-top:28px;color:#1a0c08}
+
+  /* about */
+  .about-grid{display:grid;grid-template-columns:1.2fr .8fr;gap:48px;align-items:start}
+  @media(max-width:820px){.about-grid{grid-template-columns:1fr}}
+  .about-body p{color:var(--bone-dim);margin:0 0 18px}
+  .about-body p b{color:var(--bone);font-weight:600}
+  .stats{display:grid;gap:1px;background:rgba(240,231,217,.12);border:1px solid rgba(240,231,217,.12);border-radius:4px;overflow:hidden}
+  .stat{background:var(--ink);padding:24px 26px}
+  .stat .n{font-family:var(--display);font-weight:800;font-size:clamp(34px,5vw,52px);line-height:1;letter-spacing:-.02em}
+  .stat .l{font-family:var(--mono);font-size:12px;color:var(--bone-dim);letter-spacing:.04em;margin-top:8px}
+
+  /* contact */
+  .contact{background:var(--ink-2);border-top:1px solid rgba(240,231,217,.10)}
+  .contact h2{font-size:clamp(40px,7vw,84px)}
+  .contact .row{display:flex;flex-wrap:wrap;gap:14px;align-items:center;margin-top:30px}
+  .contact .mail{font-family:var(--mono);font-size:clamp(15px,2.4vw,22px);color:var(--bone);border-bottom:1px solid var(--scarlet);padding-bottom:3px}
+  .contact .mail:hover{color:var(--scarlet)}
+
+  /* newsletter */
+  .news{border-top:1px solid rgba(240,231,217,.10)}
+  .news-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(20px,5vw,56px);align-items:center}
+  @media(max-width:720px){.news-grid{grid-template-columns:1fr;gap:24px}}
+  .news h2{font-size:clamp(26px,4vw,44px)}
+  .news p{color:var(--bone-dim);margin:14px 0 0;max-width:46ch}
+  .news form{display:flex;gap:10px;flex-wrap:wrap}
+  .news input{flex:1;min-width:200px;background:var(--ink-2);border:1px solid rgba(240,231,217,.16);border-radius:3px;color:var(--bone);font-family:var(--body);font-size:16px;padding:13px 14px}
+  .news input:focus{outline:none;border-color:var(--scarlet)}
+  .news .ok{font-family:var(--mono);font-size:13px;color:var(--scarlet);margin-top:12px;display:none}
+
+  /* cookie banner */
+  .cookie{position:fixed;left:16px;right:16px;bottom:16px;z-index:1000;max-width:560px;margin:0 auto;background:var(--ink-2);border:1px solid rgba(240,231,217,.18);border-radius:8px;padding:18px 20px;display:none;box-shadow:0 20px 50px -20px rgba(0,0,0,.7)}
+  .cookie.show{display:block}
+  .cookie p{margin:0 0 14px;font-size:14px;color:var(--bone-dim)}
+  .cookie p a{color:var(--scarlet);text-decoration:underline}
+  .cookie .row{display:flex;gap:10px;flex-wrap:wrap}
+  .cookie .btn{padding:9px 16px;font-size:12px}
+  .cookie .btn-ghost{background:transparent;color:var(--bone);border:1px solid rgba(240,231,217,.3)}
+
+  footer{border-top:1px solid rgba(240,231,217,.10);padding:40px 0}
+  .foot{display:flex;justify-content:space-between;flex-wrap:wrap;gap:18px;align-items:center}
+  .foot .links{display:flex;gap:22px;font-family:var(--mono);font-size:12px;color:var(--bone-dim);letter-spacing:.04em;flex-wrap:wrap}
+  .foot .links a:hover{color:var(--bone)}
+  .foot .small{font-family:var(--mono);font-size:11px;color:var(--bone-dim)}
+  .flag{font-family:var(--mono);font-size:10.5px;color:var(--scarlet);letter-spacing:.06em;opacity:.85}
+
+  .reveal{opacity:0;transform:translateY(22px);transition:opacity .7s ease,transform .7s cubic-bezier(.2,.7,.2,1)}
+  .reveal.in{opacity:1;transform:none}
+  @media (prefers-reduced-motion: reduce){.reveal{opacity:1;transform:none}}
+</style>
+</head>
+<body>
+
+<a class="skip" href="#how">Skip to content</a>
+
+<header class="nav">
+  <div class="wrap nav-inner">
+    <a class="logo" href="#top" aria-label="22s home">
+      <svg width="26" height="26" viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="13" fill="none" stroke="#FF3A20" stroke-width="2.5"/><circle cx="16" cy="16" r="4" fill="#FF3A20"/></svg>
+      <span>22<b>s</b></span>
+    </a>
+    <button class="menu-btn" aria-label="Menu" aria-expanded="false" aria-controls="primary-nav"><span></span><span></span><span></span></button>
+    <nav class="nav-links" id="primary-nav" aria-label="Primary">
+      <a href="#how">How it works</a>
+      <a href="#ranking">The ranking</a>
+      <a href="for-creators.html">For creators</a>
+      <a href="for-brands.html">For brands</a>
+      <a href="journal.html">Journal</a>
+      <a class="btn" href="join.html">Join the waitlist</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- HERO (creator-led) -->
+  <section class="hero">
+    <div class="wrap">
+      <div class="eyebrow">A creator-led agency · membership by application</div>
+      <h1 class="display-xl"><span class="ink-line">Passion</span><span class="ink-line">first.</span></h1>
+      <p class="lede">Apply to the roster. Choose the six brands you'd back for free. Earn your place on the board. <b>We take your passion to the brands</b> and turn it into the partnership you actually wanted. We cap how many we take on, so the work stays real.</p>
+      <div class="fork">
+        <a class="btn" href="join.html">Join the waitlist</a>
+        <a class="btn btn-ghost" href="passion-score.html">What's your Passion Score?</a>
+        <a href="for-brands.html" class="micro" style="text-decoration:underline">I'm a brand →</a>
+      </div>
+    </div>
+  </section>
+
+  <div class="marquee" aria-hidden="true">
+    <div class="track">
+      <span>Choose your six</span><span><i>✕</i></span><span>Get ranked</span><span><i>✕</i></span><span>Back what you love</span><span><i>✕</i></span><span>We win the brand</span><span><i>✕</i></span>
+      <span>Choose your six</span><span><i>✕</i></span><span>Get ranked</span><span><i>✕</i></span><span>Back what you love</span><span><i>✕</i></span><span>We win the brand</span><span><i>✕</i></span>
+    </div>
+  </div>
+
+  <!-- EXCLUSIVITY BAND -->
+  <section class="excl">
+    <div class="wrap row reveal">
+      <div class="lead2">Not everyone gets on. <em>That's the point.</em></div>
+      <div class="notes">
+        <div>We <b>cap memberships every month</b> so the creators we represent genuinely match our values. Quality of fit over quantity, always.</div>
+        <div>Interest has been overwhelming. If you're <b>waiting on a response</b>, thank you for your patience — we review every application personally.</div>
+        <div>Want to skip the queue? We <b>prioritise creators with a referral</b> from someone already on the roster.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS (creator side leads) -->
+  <section id="how">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <div class="eyebrow">For creators · how it works</div>
+        <h2 class="display-l">Your passion, ranked.</h2>
+        <p>The whole thing starts with you, not a brand brief. You build the profile, you choose the brands, and the order is what makes every partnership real.</p>
+      </div>
+      <div class="steps reveal">
+        <div class="step"><div class="no">01</div><h3>Apply &amp; build your profile</h3><p>Your work, your audience, your story. A few minutes to set up. Every application is reviewed personally.</p></div>
+        <div class="step"><div class="no">02</div><h3>Choose your top six</h3><p>Name the six brands you'd represent for free. This is the heart of it. Conviction, not a rate card.</p></div>
+        <div class="step"><div class="no">03</div><h3>Climb the ranking</h3><p>A complete, active profile with real affinity earns a Passion Score and a place on the board.</p></div>
+        <div class="step"><div class="no">04</div><h3>We win your brands</h3><p>We take your six to those brands with a finished solution. The love was real before any deal.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TOP SIX centerpiece -->
+  <section class="topsix" id="topsix">
+    <div class="wrap reveal">
+      <div class="eyebrow">The heart of it</div>
+      <h2 class="big">Your <em>top&nbsp;six.</em></h2>
+      <p class="sub">Six brands you'd back for free, ranked in the order you actually feel them. That list is the brief. We go and win them, from the top down. No performing love you don't feel.</p>
+      <div class="six-demo">
+        <div class="slot filled"><span class="rank">01</span><span class="pick">Brand A</span><span class="st">● Won</span></div>
+        <div class="slot filled"><span class="rank">02</span><span class="pick">Brand B</span><span class="st">● Won</span></div>
+        <div class="slot filled"><span class="rank">03</span><span class="pick">Brand C</span><span class="st">In talks</span></div>
+        <div class="slot empty"><span class="rank">04</span><span class="pick">+ add</span><span class="st">your pick</span></div>
+        <div class="slot empty"><span class="rank">05</span><span class="pick">+ add</span><span class="st">your pick</span></div>
+        <div class="slot empty"><span class="rank">06</span><span class="pick">+ add</span><span class="st">your pick</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- RANKING BOARD -->
+  <section id="ranking">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <div class="eyebrow">The ranking</div>
+        <h2 class="display-l">The talent board.</h2>
+        <p>Every signed-up creator, ranked by Passion Score. Profile depth, real audience, engagement, and the strength of their brand affinity. The board is live proof the passion is real before anyone gets paid.</p>
+      </div>
+
+      <div class="board-head reveal">
+        <div class="filters" role="tablist" aria-label="Filter ranking by category">
+          <button class="chip active" data-cat="all">All</button>
+          <button class="chip" data-cat="music">Music &amp; film</button>
+          <button class="chip" data-cat="fashion">Fashion</button>
+          <button class="chip" data-cat="food">Food</button>
+          <button class="chip" data-cat="sport">Sport</button>
+          <button class="chip" data-cat="beauty">Beauty</button>
+        </div>
+        <span class="board-foot note">Sample data · membership is capped · referrals prioritised</span>
+      </div>
+
+      <div class="board reveal" id="board">
+        <div class="rowh"><span>Rank</span><span>Creator</span><span>Category</span><span>Reach</span><span>Eng.</span><span>Passion Score</span></div>
+        <!-- rows injected -->
+      </div>
+
+      <div class="board-foot">
+        <div class="formula reveal">
+          <span class="f"><b>Passion Score</b> =</span>
+          <span class="f">profile depth</span>
+          <span class="f">+ audience</span>
+          <span class="f">+ engagement</span>
+          <span class="f">+ <b>brand affinity</b></span>
+        </div>
+        <a class="btn" href="join.html">Apply for the board</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROOF BAND -->
+  <section class="proof">
+    <div class="wrap proof-grid reveal">
+      <div>
+        <div class="eyebrow">Why it works</div>
+        <div class="claim" style="margin-top:18px">Real affinity <em>outperforms</em> paid-for love.</div>
+        <p class="sub">Audiences can feel the difference. Endorsements that start with genuine passion earn the engagement that manufactured ones never will.</p>
+      </div>
+      <div class="vs">
+        <div class="col dim"><div class="k">Typical influencer post</div><div class="v">~1.9%</div></div>
+        <div class="arrow">→</div>
+        <div class="col hot"><div class="k">22s creators</div><div class="v">7%+</div></div>
+      </div>
+    </div>
+    <div class="wrap" style="margin-top:20px">
+      <span class="flag">⚑ Illustrative. The ~1.9% is a common industry benchmark; the 7%+ is a placeholder — replace with your own measured campaign data before launch.</span>
+    </div>
+  </section>
+
+  <!-- BRAND PAYOFF -->
+  <section class="payoff" id="brands">
+    <div class="wrap reveal">
+      <div class="eyebrow">For brands</div>
+      <h2>You don't search our talent.<br>You're told who chose you.</h2>
+      <p class="lead">No browsing a roster, no cold list of names for hire. We come to you with the creators who already named your brand in their top six. <b>The affinity exists before the conversation does.</b> That's the only endorsement worth buying.</p>
+      <div class="cards">
+        <div class="card"><div class="n">01</div><h3>Pre-qualified passion</h3><p>Every creator we bring you put your brand on their own list, before any fee was on the table.</p></div>
+        <div class="card"><div class="n">02</div><h3>A finished solution</h3><p>Built by a team that came from production, not a spreadsheet of handles. Ready to run.</p></div>
+        <div class="card"><div class="n">03</div><h3>Micro to household</h3><p>Belief scales where budget doesn't. We match you on conviction, at every tier.</p></div>
+      </div>
+      <div class="row">
+        <a class="btn btn-dark" href="#contact">Work with us</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- MANIFESTO -->
+  <section class="manifesto">
+    <div class="wrap">
+      <div class="eyebrow">The belief</div>
+      <h2>Passion<br>first.</h2>
+      <p class="body">For too long, creators learned to perform love for the camera, only after the deal was already done. We put the passion first. By pairing creators with brands they already believe in, rather than brands with creators, the endorsement is real. We'd rather make nothing than fake it.</p>
+      <div class="sign">— 22s</div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="wrap">
+      <div class="sec-head reveal"><div class="eyebrow">About</div><h2 class="display-l">Built by a maker.</h2></div>
+      <div class="about-grid">
+        <div class="about-body reveal">
+          <p><b>22s was founded by Matthew Peltier</b>, who built and ran an in-house film and audio team that delivered 300+ campaigns for brands from Lidl to LinkedIn, Vodafone to AXA.</p>
+          <p>That's the difference. We don't just broker deals, we come from production. We understand what makes content true on camera, because we've spent a decade making it. We've built the whole platform around the creator who means it.</p>
+          <p>North London roots, a deep love of music and culture, and a simple conviction: the work is better when the passion is real. <b>Passion first. Always.</b></p>
+        </div>
+        <div class="stats reveal">
+          <div class="stat"><div class="n" data-count="300" data-suffix="+">300+</div><div class="l">campaigns delivered</div></div>
+          <div class="stat"><div class="n">Micro→★</div><div class="l">creators, every tier</div></div>
+          <div class="stat"><div class="n">Top 6</div><div class="l">brands, chosen by you</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="contact" id="contact">
+    <div class="wrap reveal">
+      <div class="eyebrow">Get in touch</div>
+      <h2 class="display-l">Start with passion.</h2>
+      <p style="color:var(--bone-dim);max-width:520px;margin:20px 0 0">A creator ready to choose your six, or a brand that wants endorsements that mean it? Tell us who you love.</p>
+      <div class="row">
+        <a class="mail" href="mailto:Passion@supa.social">Passion@supa.social</a>
+      </div>
+      <div class="row">
+        <a class="btn" href="join.html">Join the waitlist</a>
+        <a class="btn btn-ghost" href="mailto:Passion@supa.social?subject=Work%20with%20us">Work with us</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<section class="news">
+  <div class="wrap news-grid reveal">
+    <div>
+      <div class="eyebrow">Stay close</div>
+      <h2 style="margin-top:12px">The passion list.</h2>
+      <p>Now and then: who joined the board, brands we won, and what's working in creator-led marketing. No spam.</p>
+    </div>
+    <div>
+      <form id="newsForm" novalidate>
+        <input type="email" name="email" required placeholder="you@email.com" aria-label="Email address">
+        <button class="btn" type="submit">Subscribe</button>
+      </form>
+      <div class="ok" id="newsOk">On the list. ✦ We'll be in touch.</div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap foot">
+    <a class="logo" href="#top" aria-label="22s home">
+      <svg width="22" height="22" viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="13" fill="none" stroke="#FF3A20" stroke-width="2.5"/><circle cx="16" cy="16" r="4" fill="#FF3A20"/></svg>
+      <span>22<b>s</b></span>
+    </a>
+    <div class="links">
+      <a href="#how">How it works</a>
+      <a href="#ranking">The ranking</a>
+      <a href="for-creators.html">For creators</a>
+      <a href="for-brands.html">For brands</a>
+      <a href="journal.html">Journal</a>
+      <a href="join.html">Join</a>
+      <a href="privacy.html">Privacy</a>
+      <a href="#contact">Contact</a>
+    </div>
+    <div class="small">© 2026 22s · Passion first</div>
+  </div>
+</footer>
+
+<!-- COOKIE CONSENT -->
+<div class="cookie" id="cookie" role="dialog" aria-label="Cookie consent" aria-live="polite">
+  <p>We use a couple of cookies to understand how the site is used. Choose what you're happy with. <a href="privacy.html">Privacy</a></p>
+  <div class="row">
+    <button class="btn" id="ckAccept">Accept</button>
+    <button class="btn btn-ghost" id="ckReject">Essential only</button>
+  </div>
+</div>
+
+<script>
+  // mobile menu
+  (function(){
+    var btn=document.querySelector('.menu-btn'), nav=document.getElementById('primary-nav');
+    if(btn&&nav){
+      btn.addEventListener('click',function(){var open=nav.classList.toggle('open');btn.setAttribute('aria-expanded',open?'true':'false');});
+      nav.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){nav.classList.remove('open');btn.setAttribute('aria-expanded','false');});});
+    }
+  })();
+
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // ranking data (sample — replace with live profiles)
+  var TALENT=[
+    {nm:'Amara Quaye', hd:'@amaraquaye', cat:'music', catL:'Music & film', reach:'412K', eng:'7.8%', score:94, ver:true},
+    {nm:'Theo Marsh', hd:'@theomarsh', cat:'fashion', catL:'Fashion', reach:'288K', eng:'6.1%', score:90, ver:true},
+    {nm:'Priya Raman', hd:'@priyaeats', cat:'food', catL:'Food & culture', reach:'526K', eng:'5.4%', score:88, ver:true},
+    {nm:'Jude Okafor', hd:'@jude.run', cat:'sport', catL:'Sport', reach:'201K', eng:'9.2%', score:86, ver:true},
+    {nm:'Lena Frost', hd:'@lenafrost', cat:'fashion', catL:'Lifestyle', reach:'333K', eng:'6.7%', score:83, ver:false},
+    {nm:'Sol Mendes', hd:'@solmakes', cat:'beauty', catL:'Beauty', reach:'274K', eng:'8.0%', score:81, ver:true},
+    {nm:'Remi Cole', hd:'@remi.cole', cat:'music', catL:'Music', reach:'158K', eng:'10.4%', score:79, ver:false},
+    {nm:'Halima Said', hd:'@halimasaid', cat:'food', catL:'Food', reach:'190K', eng:'7.1%', score:76, ver:true}
+  ];
+  var board=document.getElementById('board');
+  function render(cat){
+    var list=TALENT.filter(function(t){return cat==='all'||t.cat===cat;});
+    board.querySelectorAll('.row').forEach(function(r){r.remove();});
+    list.forEach(function(t,i){
+      var row=document.createElement('div');
+      row.className='row';
+      var ver=t.ver?'<span class="ver" title="Verified creator"><svg viewBox="0 0 24 24" fill="none" stroke="#1a0c08" stroke-width="3.5"><path d="M5 12l4 4 10-10"/></svg></span>':'';
+      row.innerHTML='<span class="rk">'+(i+1)+'</span>'+
+        '<span class="who"><span class="av"></span><span><span class="nm">'+t.nm+ver+'</span><span class="hd">'+t.hd+'</span></span></span>'+
+        '<span class="cat">'+t.catL+'</span>'+
+        '<span class="num">'+t.reach+'</span>'+
+        '<span class="num">'+t.eng+'</span>'+
+        '<span class="score">'+t.score+'<small>22s</small></span>';
+      board.appendChild(row);
+    });
+  }
+  render('all');
+  document.querySelectorAll('.chip').forEach(function(c){
+    c.addEventListener('click',function(){
+      document.querySelectorAll('.chip').forEach(function(x){x.classList.remove('active');});
+      c.classList.add('active');
+      render(c.dataset.cat);
+    });
+  });
+  // live board from Supabase (falls back to the sample above if not configured)
+  if(window.supaReady&&window.supaReady()){
+    window.supaBoard().then(function(r){
+      if(r&&!r.error&&r.data&&r.data.length){
+        TALENT=r.data.map(function(d){
+          var rk=(typeof d.reach==='number'&&d.reach>=1000)?Math.round(d.reach/1000)+'K':(d.reach||'—');
+          return {nm:d.name,hd:d.handle,cat:(d.category||'').toLowerCase().split(/[ &]/)[0],catL:d.category||'',reach:rk,eng:(d.engagement!=null?d.engagement+'%':'—'),score:d.passion_score,ver:!!d.verified};
+        });
+        var active=document.querySelector('.chip.active');
+        render(active?active.dataset.cat:'all');
+      }
+    }).catch(function(){});
+  }
+
+  // scroll reveal
+  (function(){
+    var els=[].slice.call(document.querySelectorAll('.reveal'));
+    if(reduce||!('IntersectionObserver' in window)){els.forEach(function(e){e.classList.add('in');});return;}
+    var io=new IntersectionObserver(function(en){en.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});},{threshold:.12});
+    els.forEach(function(e){io.observe(e);});
+  })();
+
+  // counters
+  (function(){
+    var nums=[].slice.call(document.querySelectorAll('.n[data-count]'));
+    if(!nums.length)return;
+    function run(el){var to=parseInt(el.dataset.count,10),suf=el.dataset.suffix||'';if(reduce){el.textContent=to+suf;return;}var s=performance.now();function tick(n){var p=Math.min((n-s)/1300,1),e=1-Math.pow(1-p,3);el.textContent=Math.round(to*e)+suf;if(p<1)requestAnimationFrame(tick);}requestAnimationFrame(tick);}
+    if(!('IntersectionObserver' in window)){nums.forEach(run);return;}
+    var io=new IntersectionObserver(function(en){en.forEach(function(e){if(e.isIntersecting){run(e.target);io.unobserve(e.target);}});},{threshold:.6});
+    nums.forEach(function(n){io.observe(n);});
+  })();
+
+  // newsletter (prototype — wire to a real list provider before launch)
+  (function(){
+    var f=document.getElementById('newsForm'), ok=document.getElementById('newsOk');
+    if(!f)return;
+    f.addEventListener('submit',function(e){
+      e.preventDefault();
+      var em=f.email.value.trim();
+      if(!em||em.indexOf('@')<0){f.email.focus();return;}
+      if(window.supaReady&&window.supaReady()){window.supaNewsletter(em).catch(function(){});}
+      f.style.display='none'; ok.style.display='block';
+      try{localStorage.setItem('passion_news',em);}catch(_){}
+    });
+  })();
+
+  // cookie consent
+  (function(){
+    var bar=document.getElementById('cookie');
+    if(!bar)return;
+    var set=null; try{set=localStorage.getItem('passion_cookie');}catch(_){}
+    if(!set){bar.classList.add('show');}
+    function choose(v){try{localStorage.setItem('passion_cookie',v);}catch(_){}bar.classList.remove('show');}
+    document.getElementById('ckAccept').addEventListener('click',function(){choose('all');});
+    document.getElementById('ckReject').addEventListener('click',function(){choose('essential');});
+  })();
+</script>
+
+</body>
+</html>

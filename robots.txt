@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+Disallow: /join.html
+Disallow: /creator.html
+
+# Replace the host below with your real domain once it's live.
+Sitemap: https://passionorpeltier.com/sitemap.xml

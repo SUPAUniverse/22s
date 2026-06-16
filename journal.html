@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Journal — 22s</title>
+<meta name="description" content="The 22s Journal: who joined the board, brands we won, and what's working in creator-led marketing. Plus Passion Sessions, our creator interview series.">
+<meta name="theme-color" content="#15100E">
+<meta property="og:type" content="website"><meta property="og:site_name" content="22s"><meta property="og:title" content="Journal — 22s">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%2315100E'/%3E%3Ccircle cx='16' cy='16' r='8' fill='none' stroke='%23FF3A20' stroke-width='3'/%3E%3Ccircle cx='16' cy='16' r='2.5' fill='%23FF3A20'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&family=Hanken+Grotesk:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="supabase-config.js"></script>
+<style>
+  :root{--ink:#15100E;--ink-2:#1D1613;--bone:#F0E7D9;--bone-dim:#B3A593;--scarlet:#FF3A20;--oxblood:#6E241B;
+    --display:'Bricolage Grotesque',system-ui,sans-serif;--body:'Hanken Grotesk',system-ui,sans-serif;--mono:'Space Mono',ui-monospace,monospace;--gut:clamp(20px,5vw,64px)}
+  *{box-sizing:border-box}@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+  body{margin:0;background:var(--ink);color:var(--bone);font-family:var(--body);font-size:18px;line-height:1.55;-webkit-font-smoothing:antialiased}
+  body::after{content:"";position:fixed;inset:0;z-index:9999;pointer-events:none;opacity:.05;mix-blend-mode:overlay;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+  a{color:inherit;text-decoration:none}:focus-visible{outline:2px solid var(--scarlet);outline-offset:3px}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 var(--gut)}
+  .nav{position:sticky;top:0;z-index:100;background:color-mix(in srgb,var(--ink) 86%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid rgba(240,231,217,.10)}
+  .nav-inner{max-width:1240px;margin:0 auto;padding:0 var(--gut);display:flex;align-items:center;justify-content:space-between;height:70px}
+  .logo{display:inline-flex;align-items:center;gap:11px;font-family:var(--display);font-weight:800;font-size:20px;letter-spacing:-.03em}.logo b{color:var(--scarlet)}
+  .btn{font-family:var(--mono);font-size:13px;letter-spacing:.04em;background:var(--scarlet);color:#1a0c08;font-weight:700;padding:11px 18px;border-radius:2px;display:inline-block;transition:.15s}.btn:hover{background:#ff5238;transform:translateY(-1px)}
+  .eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--scarlet);display:flex;align-items:center;gap:10px}.eyebrow::before{content:"";width:26px;height:1px;background:var(--scarlet);display:inline-block}
+  h1{font-family:var(--display);font-weight:800;letter-spacing:-.02em;line-height:1;font-size:clamp(40px,8vw,84px);margin:14px 0 0}
+  .intro{padding:clamp(44px,8vh,80px) 0 0}.intro p{color:var(--bone-dim);max-width:54ch;margin:20px 0 0}
+  .flag{font-family:var(--mono);font-size:10.5px;color:var(--scarlet);opacity:.85;margin-top:18px}
+  section{padding:clamp(40px,7vh,72px) 0}
+  .feat{display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:center;background:radial-gradient(120% 120% at 15% 0%,#33170f,var(--ink-2));border:1px solid rgba(255,58,32,.35);border-radius:10px;padding:clamp(22px,4vw,40px)}
+  @media(max-width:720px){.feat{grid-template-columns:1fr}}
+  .feat .tag{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--scarlet)}
+  .feat h2{font-family:var(--display);font-weight:800;font-size:clamp(26px,4vw,40px);margin:12px 0 0;letter-spacing:-.02em}
+  .feat p{color:var(--bone-dim);margin:14px 0 0}
+  .feat .art{aspect-ratio:16/10;border-radius:8px;background:radial-gradient(120% 120% at 70% 20%,#5a241a,#15100E);border:1px solid rgba(240,231,217,.12);position:relative}
+  .feat .art .play{position:absolute;inset:0;margin:auto;width:56px;height:56px;border-radius:50%;border:1px solid rgba(240,231,217,.5);display:grid;place-items:center;color:var(--bone)}
+  .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:8px}@media(max-width:860px){.grid{grid-template-columns:1fr 1fr}}@media(max-width:560px){.grid{grid-template-columns:1fr}}
+  .post{background:var(--ink-2);border:1px solid rgba(240,231,217,.1);border-radius:8px;overflow:hidden;transition:.2s;display:block}
+  .post:hover{transform:translateY(-4px);border-color:rgba(255,58,32,.4)}
+  .post .ph{aspect-ratio:16/10;background:radial-gradient(120% 120% at 30% 20%,#3a1a14,#15100E)}
+  .post .body{padding:18px}
+  .post .k{font-family:var(--mono);font-size:11px;color:var(--scarlet);letter-spacing:.06em}
+  .post h3{font-family:var(--display);font-weight:700;font-size:19px;margin:10px 0 8px;line-height:1.1}
+  .post p{margin:0;color:var(--bone-dim);font-size:14px}
+  /* newsletter */
+  .news{border-top:1px solid rgba(240,231,217,.10)}
+  .news-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(20px,5vw,56px);align-items:center}@media(max-width:720px){.news-grid{grid-template-columns:1fr;gap:24px}}
+  .news h2{font-family:var(--display);font-weight:800;font-size:clamp(26px,4vw,40px);letter-spacing:-.02em}
+  .news p{color:var(--bone-dim);margin:14px 0 0;max-width:46ch}
+  .news form{display:flex;gap:10px;flex-wrap:wrap}
+  .news input{flex:1;min-width:200px;background:var(--ink-2);border:1px solid rgba(240,231,217,.16);border-radius:3px;color:var(--bone);font-family:var(--body);font-size:16px;padding:13px 14px}.news input:focus{outline:none;border-color:var(--scarlet)}
+  .news .ok{font-family:var(--mono);font-size:13px;color:var(--scarlet);margin-top:12px;display:none}
+  footer{border-top:1px solid rgba(240,231,217,.10);padding:34px 0;font-family:var(--mono);font-size:12px;color:var(--bone-dim)}
+  .footin{max-width:1240px;margin:0 auto;padding:0 var(--gut);display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap}
+</style>
+</head>
+<body>
+<header class="nav"><div class="nav-inner">
+  <a class="logo" href="index.html" aria-label="22s home"><svg width="24" height="24" viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="13" fill="none" stroke="#FF3A20" stroke-width="2.5"/><circle cx="16" cy="16" r="4" fill="#FF3A20"/></svg><span>22<b>s</b></span></a>
+  <a class="btn" href="join.html">Join the waitlist</a>
+</div></header>
+
+<main>
+  <section class="intro"><div class="wrap">
+    <div class="eyebrow">Journal</div>
+    <h1>Notes from the board.</h1>
+    <p>Who joined, brands we won, and what's actually working in creator-led marketing.</p>
+    <div class="flag">⚑ Placeholder articles. Replace with real posts (a CMS or Markdown files) when you're ready to publish.</div>
+  </div></section>
+
+  <section style="padding-top:10px"><div class="wrap">
+    <div class="feat">
+      <div>
+        <div class="tag">✦ Passion Sessions · series</div>
+        <h2>The creators, on why they chose their six.</h2>
+        <p>Our interview series. Short films where roster creators talk through the brands they'd back for free, and why. Made by a team that came from production. Coming soon.</p>
+        <div style="margin-top:20px"><a class="btn" href="join.html">Want to feature? Apply</a></div>
+      </div>
+      <div class="art"><div class="play">▶</div></div>
+    </div>
+  </div></section>
+
+  <section style="padding-top:10px"><div class="wrap">
+    <div class="eyebrow" style="margin-bottom:22px">Latest</div>
+    <div class="grid">
+      <a class="post" href="#"><div class="ph"></div><div class="body"><div class="k">Playbook</div><h3>Why authentic affinity out-converts paid-for love</h3><p>The numbers behind passion-led endorsements.</p></div></a>
+      <a class="post" href="#"><div class="ph"></div><div class="body"><div class="k">The model</div><h3>What "choose your top six" really asks of a creator</h3><p>Conviction over rate cards, explained.</p></div></a>
+      <a class="post" href="#"><div class="ph"></div><div class="body"><div class="k">On the board</div><h3>How the Passion Score is calculated</h3><p>Profile depth, audience, engagement, affinity.</p></div></a>
+      <a class="post" href="#"><div class="ph"></div><div class="body"><div class="k">For brands</div><h3>Being told who chose you beats searching for talent</h3><p>The case against the roster-browse.</p></div></a>
+      <a class="post" href="#"><div class="ph"></div><div class="body"><div class="k">Culture</div><h3>North London, music, and making things that mean it</h3><p>Where the studio's head is at.</p></div></a>
+      <a class="post" href="#"><div class="ph"></div><div class="body"><div class="k">Inside</div><h3>Why we cap the roster every month</h3><p>Quality of fit over quantity, always.</p></div></a>
+    </div>
+  </div></section>
+
+  <section class="news"><div class="wrap news-grid">
+    <div>
+      <div class="eyebrow">Stay close</div>
+      <h2 style="margin-top:12px">The passion list.</h2>
+      <p>Now and then: who joined the board, brands we won, and what's working in creator-led marketing. No spam.</p>
+    </div>
+    <div>
+      <form id="newsForm" novalidate><input type="email" name="email" required placeholder="you@email.com" aria-label="Email"><button class="btn" type="submit">Subscribe</button></form>
+      <div class="ok" id="newsOk">On the list. ✦</div>
+    </div>
+  </div></section>
+</main>
+
+<footer><div class="footin"><span>© 2026 22s · Passion first</span><a href="index.html">← Back to home</a></div></footer>
+<script>
+  var f=document.getElementById('newsForm'),ok=document.getElementById('newsOk');
+  f.addEventListener('submit',function(e){e.preventDefault();var em=f.email.value.trim();if(!em||em.indexOf('@')<0){return;}if(window.supaReady&&window.supaReady()){window.supaNewsletter(em).catch(function(){});}f.style.display='none';ok.style.display='block';try{localStorage.setItem('passion_news',em);}catch(_){}});
+</script>
+</body>
+</html>

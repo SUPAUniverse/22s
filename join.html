@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Join the waitlist — 22s</title>
+<meta name="description" content="Apply to the 22s roster. Membership is capped each month so the creators we represent match our values. Referrals are prioritised.">
+<meta name="theme-color" content="#15100E">
+<meta name="robots" content="noindex">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%2315100E'/%3E%3Ccircle cx='16' cy='16' r='8' fill='none' stroke='%23FF3A20' stroke-width='3'/%3E%3Ccircle cx='16' cy='16' r='2.5' fill='%23FF3A20'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&family=Hanken+Grotesk:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="supabase-config.js"></script>
+<style>
+  :root{--ink:#15100E;--ink-2:#1D1613;--bone:#F0E7D9;--bone-dim:#B3A593;--scarlet:#FF3A20;--oxblood:#6E241B;
+    --display:'Bricolage Grotesque',system-ui,sans-serif;--body:'Hanken Grotesk',system-ui,sans-serif;--mono:'Space Mono',ui-monospace,monospace;--gut:clamp(20px,5vw,64px)}
+  *{box-sizing:border-box}@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+  body{margin:0;background:var(--ink);color:var(--bone);font-family:var(--body);font-size:18px;line-height:1.55;-webkit-font-smoothing:antialiased}
+  body::after{content:"";position:fixed;inset:0;z-index:9999;pointer-events:none;opacity:.05;mix-blend-mode:overlay;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+  a{color:inherit;text-decoration:none}:focus-visible{outline:2px solid var(--scarlet);outline-offset:3px}
+  .wrap{max-width:760px;margin:0 auto;padding:0 var(--gut)}
+  .eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--scarlet);display:flex;align-items:center;gap:10px}
+  .eyebrow::before{content:"";width:26px;height:1px;background:var(--scarlet);display:inline-block}
+  h1{font-family:var(--display);font-weight:800;letter-spacing:-.02em;line-height:1;font-size:clamp(38px,7vw,68px);margin:14px 0 0}
+  .logo{display:inline-flex;align-items:center;gap:11px;font-family:var(--display);font-weight:800;font-size:20px;letter-spacing:-.03em}.logo b{color:var(--scarlet)}
+  .nav{position:sticky;top:0;z-index:100;background:color-mix(in srgb,var(--ink) 86%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid rgba(240,231,217,.10)}
+  .nav-inner{max-width:1240px;margin:0 auto;padding:0 var(--gut);display:flex;align-items:center;justify-content:space-between;height:70px}
+  .back{font-family:var(--mono);font-size:13px;color:var(--bone-dim)}.back:hover{color:var(--bone)}
+  .intro{padding:clamp(40px,7vh,80px) 0 10px}.intro p{color:var(--bone-dim);margin:18px 0 0;max-width:54ch}
+  .pill{display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--scarlet);border:1px solid rgba(255,58,32,.4);border-radius:100px;padding:7px 14px;margin-top:22px}
+  .pill .dot{width:7px;height:7px;border-radius:50%;background:var(--scarlet);box-shadow:0 0 0 0 rgba(255,58,32,.6);animation:pulse 2s infinite}
+  @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(255,58,32,.5)}70%{box-shadow:0 0 0 8px rgba(255,58,32,0)}100%{box-shadow:0 0 0 0 rgba(255,58,32,0)}}
+  .terms-band{margin:26px 0 0;display:grid;gap:12px}
+  .terms-band div{font-family:var(--mono);font-size:12.5px;line-height:1.6;color:var(--bone-dim);padding-left:16px;border-left:1px solid rgba(255,58,32,.5)}
+  .terms-band div b{color:var(--bone);font-weight:700}
+  form{margin:40px 0 0;padding-bottom:80px}
+  .grp{margin:0 0 22px}
+  label{display:block;font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--bone-dim);margin:0 0 8px}
+  label .req{color:var(--scarlet)}
+  input,textarea,select{width:100%;background:var(--ink-2);border:1px solid rgba(240,231,217,.16);border-radius:4px;color:var(--bone);font-family:var(--body);font-size:16px;padding:13px 14px}
+  input:focus,textarea:focus,select:focus{outline:none;border-color:var(--scarlet)}
+  textarea{min-height:96px;resize:vertical}
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:14px}@media(max-width:560px){.two{grid-template-columns:1fr}}
+  .hint{font-family:var(--mono);font-size:11px;color:var(--bone-dim);margin-top:7px}
+  .referral{background:radial-gradient(120% 120% at 20% 0%,#33170f,var(--ink-2));border:1px solid rgba(255,58,32,.35);border-radius:8px;padding:18px 20px;margin:0 0 22px}
+  .referral .t{font-family:var(--display);font-weight:800;font-size:18px}
+  .referral .s{font-family:var(--mono);font-size:11.5px;color:var(--bone-dim);margin:6px 0 12px}
+  .referral input{background:var(--ink)}
+  fieldset{border:1px solid rgba(240,231,217,.14);border-radius:6px;padding:20px;margin:0 0 22px}
+  legend{font-family:var(--display);font-weight:800;font-size:20px;padding:0 8px}legend .c{color:var(--scarlet)}
+  .six{display:grid;grid-template-columns:1fr 1fr;gap:10px}@media(max-width:560px){.six{grid-template-columns:1fr}}
+  .six .pick{display:flex;align-items:center;gap:10px;background:var(--ink-2);border:1px solid rgba(240,231,217,.14);border-radius:4px;padding:10px 12px}
+  .six .pick .n{font-family:var(--mono);font-size:12px;color:var(--scarlet);flex:none;width:22px}
+  .six .pick input{border:0;background:transparent;padding:4px 0}
+  .btn{font-family:var(--mono);font-size:14px;letter-spacing:.04em;background:var(--scarlet);color:#1a0c08;font-weight:700;padding:15px 26px;border-radius:3px;border:0;cursor:pointer;transition:transform .15s,background .2s}
+  .btn:hover{background:#ff5238;transform:translateY(-1px)}
+  .note{font-family:var(--mono);font-size:11px;color:var(--bone-dim);margin-top:16px;line-height:1.6}
+  .flag{font-family:var(--mono);font-size:11px;color:var(--scarlet);background:rgba(255,58,32,.08);border:1px solid rgba(255,58,32,.3);border-radius:4px;padding:12px 14px;margin:0 0 30px}
+  .ok{display:none;background:var(--ink-2);border:1px solid rgba(255,58,32,.4);border-radius:6px;padding:28px;margin:30px 0 0}
+  .ok h2{font-family:var(--display);font-weight:800;font-size:28px;margin:0 0 10px}.ok p{color:var(--bone-dim);margin:0 0 12px}
+  footer{border-top:1px solid rgba(240,231,217,.10);padding:30px 0;font-family:var(--mono);font-size:11px;color:var(--bone-dim)}
+  .footin{max-width:1240px;margin:0 auto;padding:0 var(--gut);display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap}
+</style>
+</head>
+<body>
+<header class="nav"><div class="nav-inner">
+  <a class="logo" href="index.html" aria-label="22s home"><svg width="24" height="24" viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="13" fill="none" stroke="#FF3A20" stroke-width="2.5"/><circle cx="16" cy="16" r="4" fill="#FF3A20"/></svg><span>22<b>s</b></span></a>
+  <a class="back" href="index.html">← Back</a>
+</div></header>
+
+<main>
+  <section class="intro"><div class="wrap">
+    <div class="eyebrow">Apply to the roster</div>
+    <h1>Join the waitlist.</h1>
+    <p>We cap how many creators we take on each month, so the people we represent genuinely match our values. Tell us who you are and name the brands you'd back for free. Every application is read personally.</p>
+    <div class="pill"><span class="dot"></span> Waitlist open · limited monthly places</div>
+    <div class="terms-band">
+      <div>We cap memberships every month to <b>protect the quality of the roster</b>. We'd rather take fewer creators who mean it.</div>
+      <div>Interest has been <b>overwhelming</b>. If you're waiting on a response, thank you for your patience — we review every application by hand.</div>
+      <div>For <b>faster access</b>, we prioritise creators referred by someone already on the roster. Add their name below.</div>
+    </div>
+  </div></section>
+
+  <div class="wrap">
+    <form id="joinForm">
+      <div class="flag">⚑ Prototype form. It opens a pre-filled email to 22s so it works today. Wire it to Supabase (a `waitlist` table) before launch to capture applications automatically.</div>
+
+      <div class="referral">
+        <div class="t">Have a referral? <span style="color:var(--scarlet)">Skip the queue.</span></div>
+        <div class="s">Name of the creator already on the 22s roster who referred you.</div>
+        <input id="referral" name="referral" placeholder="Referrer's name or @handle (optional)">
+      </div>
+
+      <div class="grp"><label for="name">Name <span class="req">*</span></label><input id="name" name="name" required placeholder="Your name"></div>
+      <div class="two">
+        <div class="grp"><label for="email">Email <span class="req">*</span></label><input id="email" name="email" type="email" required placeholder="you@email.com"></div>
+        <div class="grp"><label for="handle">Main handle <span class="req">*</span></label><input id="handle" name="handle" required placeholder="@yourhandle"></div>
+      </div>
+      <div class="two">
+        <div class="grp"><label for="cat">Category</label>
+          <select id="cat" name="cat"><option>Music &amp; film</option><option>Fashion</option><option>Food &amp; culture</option><option>Sport</option><option>Beauty</option><option>Lifestyle</option><option>Other</option></select>
+        </div>
+        <div class="grp"><label for="reach">Total following</label><input id="reach" name="reach" placeholder="e.g. 120K"></div>
+      </div>
+      <div class="grp">
+        <label for="bio">Why you, and what you genuinely rate</label>
+        <textarea id="bio" name="bio" placeholder="What do you make, who's it for, and which brands do you actually love? This is what we read first."></textarea>
+        <div class="hint">Values fit matters more than follower count. Be honest, be you.</div>
+      </div>
+
+      <fieldset>
+        <legend>Your <span class="c">top six</span></legend>
+        <div class="hint" style="margin:0 0 14px">Six brands you'd represent for free, in the order you feel them. This is the brief.</div>
+        <div class="six">
+          <div class="pick"><span class="n">01</span><input name="b1" placeholder="Brand you'd back first" aria-label="Top six brand 1"></div>
+          <div class="pick"><span class="n">02</span><input name="b2" placeholder="Brand" aria-label="Top six brand 2"></div>
+          <div class="pick"><span class="n">03</span><input name="b3" placeholder="Brand" aria-label="Top six brand 3"></div>
+          <div class="pick"><span class="n">04</span><input name="b4" placeholder="Brand" aria-label="Top six brand 4"></div>
+          <div class="pick"><span class="n">05</span><input name="b5" placeholder="Brand" aria-label="Top six brand 5"></div>
+          <div class="pick"><span class="n">06</span><input name="b6" placeholder="Brand" aria-label="Top six brand 6"></div>
+        </div>
+      </fieldset>
+
+      <button class="btn" type="submit">Submit my application</button>
+      <div class="note">We review every application personally and only open a limited number of places each month. By applying you agree we may contact you about representation. No spam, no selling your data.</div>
+    </form>
+
+    <div class="ok" id="ok">
+      <h2>Application received. ✦</h2>
+      <p>Thank you — your application and your six are with us. Interest has been overwhelming, so it may take us a little while to come back to you. We read every one personally.</p>
+      <p>Referred by someone on the roster? You've just moved up the queue.</p>
+      <p style="margin-top:16px"><a class="back" href="index.html#ranking">← See the board</a></p>
+    </div>
+  </div>
+</main>
+
+<footer><div class="footin"><span>© 2026 22s · Passion first</span><a href="index.html">← Back to home</a></div></footer>
+
+<script>
+  document.getElementById('joinForm').addEventListener('submit',function(e){
+    e.preventDefault();
+    var f=e.target;
+    if(!f.name.value||!f.email.value||!f.handle.value){return;}
+    var six=[f.b1.value,f.b2.value,f.b3.value,f.b4.value,f.b5.value,f.b6.value].map(function(v,i){return (i+1)+'. '+(v||'—');}).join('%0D%0A');
+    var body='Name: '+f.name.value+'%0D%0A'+
+      'Email: '+f.email.value+'%0D%0A'+
+      'Handle: '+f.handle.value+'%0D%0A'+
+      'Category: '+f.cat.value+'%0D%0A'+
+      'Following: '+(f.reach.value||'—')+'%0D%0A'+
+      'Referred by: '+(f.referral.value||'—')+'%0D%0A'+
+      'Why: '+encodeURIComponent(f.bio.value||'—')+'%0D%0A%0D%0A'+
+      'TOP SIX:%0D%0A'+six;
+    function done(){f.style.display='none';var ok=document.getElementById('ok');ok.style.display='block';ok.scrollIntoView({behavior:'smooth'});}
+    function mailFallback(){window.location.href='mailto:Passion@supa.social?subject='+encodeURIComponent('Waitlist application — '+f.name.value)+'&body='+body;}
+    if(window.supaReady&&window.supaReady()){
+      window.supaWaitlist({name:f.name.value,email:f.email.value,handle:f.handle.value,category:f.cat.value,following:f.reach.value||null,why:f.bio.value||null,referred_by:f.referral.value||null,top_six:[f.b1.value,f.b2.value,f.b3.value,f.b4.value,f.b5.value,f.b6.value].filter(Boolean)})
+        .then(function(r){if(r&&r.error){mailFallback();}done();})
+        .catch(function(){mailFallback();done();});
+    }else{mailFallback();done();}
+  });
+</script>
+</body>
+</html>

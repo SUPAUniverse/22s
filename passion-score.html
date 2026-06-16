@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>What's your Passion Score? — 22s</title>
+<meta name="description" content="Two-minute quiz. Find out your Passion Score and where you'd land on the board. Passion first.">
+<meta name="theme-color" content="#15100E">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="22s">
+<meta property="og:title" content="What's your Passion Score?">
+<meta property="og:description" content="Two-minute quiz. Find your Passion Score and where you'd land on the board.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%2315100E'/%3E%3Ccircle cx='16' cy='16' r='8' fill='none' stroke='%23FF3A20' stroke-width='3'/%3E%3Ccircle cx='16' cy='16' r='2.5' fill='%23FF3A20'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&family=Hanken+Grotesk:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{--ink:#15100E;--ink-2:#1D1613;--bone:#F0E7D9;--bone-dim:#B3A593;--scarlet:#FF3A20;--oxblood:#6E241B;
+    --display:'Bricolage Grotesque',system-ui,sans-serif;--body:'Hanken Grotesk',system-ui,sans-serif;--mono:'Space Mono',ui-monospace,monospace;--gut:clamp(20px,5vw,64px)}
+  *{box-sizing:border-box}@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+  body{margin:0;background:var(--ink);color:var(--bone);font-family:var(--body);font-size:18px;line-height:1.55;-webkit-font-smoothing:antialiased}
+  body::after{content:"";position:fixed;inset:0;z-index:9999;pointer-events:none;opacity:.05;mix-blend-mode:overlay;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+  a{color:inherit;text-decoration:none}:focus-visible{outline:2px solid var(--scarlet);outline-offset:3px}
+  .wrap{max-width:680px;margin:0 auto;padding:0 var(--gut)}
+  .nav{position:sticky;top:0;z-index:100;background:color-mix(in srgb,var(--ink) 86%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid rgba(240,231,217,.10)}
+  .nav-inner{max-width:1240px;margin:0 auto;padding:0 var(--gut);display:flex;align-items:center;justify-content:space-between;height:70px}
+  .logo{display:inline-flex;align-items:center;gap:11px;font-family:var(--display);font-weight:800;font-size:20px;letter-spacing:-.03em}.logo b{color:var(--scarlet)}
+  .back{font-family:var(--mono);font-size:13px;color:var(--bone-dim)}.back:hover{color:var(--bone)}
+  .eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--scarlet);display:flex;align-items:center;gap:10px}
+  .eyebrow::before{content:"";width:26px;height:1px;background:var(--scarlet);display:inline-block}
+  h1{font-family:var(--display);font-weight:800;letter-spacing:-.02em;line-height:1;font-size:clamp(34px,6vw,60px);margin:14px 0 0}
+  .intro{padding:clamp(40px,7vh,72px) 0 0}.intro p{color:var(--bone-dim);margin:18px 0 0}
+  .prog{height:6px;background:rgba(240,231,217,.12);border-radius:100px;overflow:hidden;margin:34px 0 0}
+  .prog i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--oxblood),var(--scarlet));transition:width .4s ease}
+  .card{margin:30px 0 80px;background:var(--ink-2);border:1px solid rgba(240,231,217,.12);border-radius:10px;padding:clamp(22px,4vw,34px)}
+  .q{font-family:var(--display);font-weight:800;font-size:clamp(20px,3vw,28px);letter-spacing:-.01em}
+  .opts{display:grid;gap:10px;margin:22px 0 0}
+  .opt{text-align:left;background:var(--ink);border:1px solid rgba(240,231,217,.16);border-radius:6px;color:var(--bone);font-family:var(--body);font-size:16px;padding:15px 16px;cursor:pointer;transition:.15s}
+  .opt:hover{border-color:var(--scarlet);transform:translateX(2px)}
+  .step-n{font-family:var(--mono);font-size:12px;color:var(--bone-dim);margin-bottom:14px}
+  .result{display:none;text-align:center}
+  .score{font-family:var(--display);font-weight:800;font-size:clamp(80px,18vw,150px);line-height:.85;color:var(--scarlet);letter-spacing:-.04em}
+  .score small{display:block;font-family:var(--mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--bone-dim);margin-top:10px}
+  .tier{font-family:var(--display);font-weight:800;font-size:clamp(22px,4vw,32px);margin:22px 0 0}
+  .rdesc{color:var(--bone-dim);max-width:42ch;margin:14px auto 0}
+  .capture{margin:28px 0 0;display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
+  .capture input{flex:1;min-width:220px;background:var(--ink);border:1px solid rgba(240,231,217,.16);border-radius:4px;color:var(--bone);font-family:var(--body);font-size:16px;padding:14px}
+  .capture input:focus{outline:none;border-color:var(--scarlet)}
+  .btn{font-family:var(--mono);font-size:13px;letter-spacing:.04em;background:var(--scarlet);color:#1a0c08;font-weight:700;padding:14px 22px;border-radius:3px;border:0;cursor:pointer;transition:.15s;display:inline-block}
+  .btn:hover{background:#ff5238;transform:translateY(-1px)}
+  .btn-ghost{background:transparent;color:var(--bone);border:1px solid rgba(240,231,217,.3)}
+  .share{margin-top:22px;font-family:var(--mono);font-size:12px;color:var(--bone-dim)}
+  .flag{font-family:var(--mono);font-size:10.5px;color:var(--scarlet);opacity:.85;margin-top:18px}
+  footer{border-top:1px solid rgba(240,231,217,.10);padding:30px 0;font-family:var(--mono);font-size:11px;color:var(--bone-dim)}
+  .footin{max-width:1240px;margin:0 auto;padding:0 var(--gut);display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap}
+</style>
+</head>
+<body>
+<header class="nav"><div class="nav-inner">
+  <a class="logo" href="index.html" aria-label="22s home"><svg width="24" height="24" viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="13" fill="none" stroke="#FF3A20" stroke-width="2.5"/><circle cx="16" cy="16" r="4" fill="#FF3A20"/></svg><span>22<b>s</b></span></a>
+  <a class="back" href="index.html">← Home</a>
+</div></header>
+
+<main>
+  <section class="intro"><div class="wrap">
+    <div class="eyebrow">2-minute quiz</div>
+    <h1>What's your Passion Score?</h1>
+    <p>Answer six quick questions to see your score and roughly where you'd land on the board. The more your work runs on genuine affinity, the higher you climb.</p>
+    <div class="prog"><i id="prog"></i></div>
+  </div></section>
+
+  <div class="wrap">
+    <div class="card" id="quiz">
+      <div class="step-n" id="stepN">Question 1 of 6</div>
+      <div class="q" id="qText"></div>
+      <div class="opts" id="opts"></div>
+    </div>
+
+    <div class="card result" id="result">
+      <div class="score" id="scoreNum">0<small>Your Passion Score</small></div>
+      <div class="tier" id="tier"></div>
+      <p class="rdesc" id="rdesc"></p>
+      <form class="capture" id="cap">
+        <input type="email" name="email" required placeholder="Email to claim your spot" aria-label="Email">
+        <button class="btn" type="submit">Claim my rank</button>
+      </form>
+      <div class="share">
+        <a class="btn btn-ghost" href="join.html">Apply to the roster →</a>
+      </div>
+      <div class="flag">⚑ Indicative only. Your real Passion Score is calculated from your full profile, audience and brand affinity once you join.</div>
+    </div>
+  </div>
+</main>
+
+<footer><div class="footin"><span>© 2026 22s · Passion first</span><a href="index.html">← Back to home</a></div></footer>
+
+<script>
+  var QS=[
+    {q:"Do you already use and love the brands you'd want to work with?",a:[["All of them, genuinely",20],["Most of them",14],["Some",8],["Not really",2]]},
+    {q:"How does your audience engage with your posts?",a:[["They comment, share, show up",20],["Decent engagement",14],["Likes, not much more",8],["Pretty quiet",3]]},
+    {q:"Would you post about your top brands for free?",a:[["Already do",20],["Yes, happily",15],["Maybe",8],["No",2]]},
+    {q:"How clear is your niche and story?",a:[["Sharp and consistent",15],["Mostly clear",11],["A bit broad",6],["Still figuring it out",2]]},
+    {q:"How complete would your profile be today?",a:[["Work, story, audience — all ready",15],["Most of it",11],["The basics",6],["Starting from scratch",2]]},
+    {q:"How often do you create?",a:[["Several times a week",10],["Weekly",7],["Now and then",4],["Rarely",1]]}
+  ];
+  var i=0,total=0;
+  var qText=document.getElementById('qText'),opts=document.getElementById('opts'),stepN=document.getElementById('stepN'),prog=document.getElementById('prog');
+  function show(){
+    var item=QS[i];
+    stepN.textContent='Question '+(i+1)+' of '+QS.length;
+    qText.textContent=item.q;
+    prog.style.width=((i)/QS.length*100)+'%';
+    opts.innerHTML='';
+    item.a.forEach(function(o){
+      var b=document.createElement('button');
+      b.className='opt';b.type='button';b.textContent=o[0];
+      b.addEventListener('click',function(){total+=o[1];i++;(i<QS.length)?show():finish();});
+      opts.appendChild(b);
+    });
+  }
+  function finish(){
+    prog.style.width='100%';
+    document.getElementById('quiz').style.display='none';
+    var max=100,score=Math.round(total/QS.reduce(function(s,q){return s+Math.max.apply(null,q.a.map(function(a){return a[1];}));},0)*100);
+    var res=document.getElementById('result');res.style.display='block';
+    var n=document.getElementById('scoreNum');
+    var tier=document.getElementById('tier'),rd=document.getElementById('rdesc');
+    var t,d;
+    if(score>=85){t="Top-of-board material.";d="Your work already runs on real affinity. This is exactly the profile brands chase. Build it out and claim your rank.";}
+    else if(score>=65){t="Board-ready.";d="Strong genuine signal. A complete profile and a sharp top six would push you up fast.";}
+    else if(score>=45){t="On the rise.";d="The passion is there. Tighten your niche and your top six and the score climbs.";}
+    else{t="Just getting going.";d="Everyone starts somewhere. Join, build your profile, and grow into your score.";}
+    tier.textContent=t;rd.textContent=d;
+    var cur=0;var step=Math.max(1,Math.round(score/40));
+    (function tick(){cur=Math.min(cur+step,score);n.innerHTML=cur+'<small>Your Passion Score</small>';if(cur<score)requestAnimationFrame(tick);})();
+  }
+  show();
+  document.getElementById('cap').addEventListener('submit',function(e){
+    e.preventDefault();
+    var em=e.target.email.value.trim();if(!em||em.indexOf('@')<0){return;}
+    try{localStorage.setItem('passion_quiz_email',em);}catch(_){}
+    window.location.href='join.html';
+  });
+</script>
+</body>
+</html>
