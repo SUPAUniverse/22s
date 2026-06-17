@@ -1,7 +1,5 @@
 /* twentytwo — Supabase front-end config
- * Paste your project's two PUBLIC values below (Supabase dashboard → Settings → API).
- * Both are safe to ship in client-side code — Row Level Security protects your data.
- * Until these are filled in, the forms fall back to email/sample mode automatically.
+ * Both values below are PUBLIC (safe to ship). Row Level Security protects the data.
  */
 window.SUPA_URL  = "https://rfdfiuzepxdrfldbbsbo.supabase.co";   // twentytwo Agency project
 window.SUPA_ANON = "sb_publishable_Of7Fz-LcWZkf14fgxu6UMg_XhtqWumj";   // publishable (public) key — safe to ship
@@ -14,16 +12,37 @@ window.SUPA_ANON = "sb_publishable_Of7Fz-LcWZkf14fgxu6UMg_XhtqWumj";   // publis
   }
   window.supaReady = function () { return !!window.supaClient; };
 
-  // Insert a waitlist application
-  window.supaWaitlist = function (row) {
-    return window.supaClient.from('waitlist').insert(row);
+  // ---- public forms ----
+  window.supaWaitlist   = function (row)   { return window.supaClient.from('waitlist').insert(row); };
+  window.supaNewsletter = function (email) { return window.supaClient.from('newsletter').insert({ email: email }); };
+  window.supaBoard      = function ()      { return window.supaClient.from('rankings').select('*').order('passion_score', { ascending: false }); };
+
+  // ---- auth (magic link / passwordless) ----
+  window.supaAuth = {
+    session:   async function () { return (await window.supaClient.auth.getSession()).data.session; },
+    user:      async function () { return (await window.supaClient.auth.getUser()).data.user; },
+    loginLink: function (email, data) {
+      return window.supaClient.auth.signInWithOtp({
+        email: email,
+        options: { emailRedirectTo: window.location.origin + '/dashboard.html', data: data || {} }
+      });
+    },
+    logout:    function () { return window.supaClient.auth.signOut(); }
   };
-  // Subscribe to the newsletter (ignore duplicate-email errors)
-  window.supaNewsletter = function (email) {
-    return window.supaClient.from('newsletter').insert({ email: email });
+
+  // ---- brand domain logic ----
+  window.supaDomainTaken  = function (domain) { return window.supaClient.rpc('domain_taken', { p_domain: domain }); };
+  window.supaBrandRequest = function (row)    { return window.supaClient.from('brand_join_requests').insert(row); };
+
+  // ---- profile tables (dashboard) ----
+  window.supaMyCreator = async function () {
+    var u = await window.supaAuth.user(); if (!u) return null;
+    var r = await window.supaClient.from('creators').select('*').eq('user_id', u.id).maybeSingle();
+    return r.data;
   };
-  // Load the live ranking board (highest Passion Score first)
-  window.supaBoard = function () {
-    return window.supaClient.from('rankings').select('*').order('passion_score', { ascending: false });
+  window.supaMyBrand = async function () {
+    var u = await window.supaAuth.user(); if (!u) return null;
+    var r = await window.supaClient.from('brands').select('*').eq('user_id', u.id).maybeSingle();
+    return r.data;
   };
 })();

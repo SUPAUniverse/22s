@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Log in — twentytwo</title>
+<meta name="description" content="Log in to twentytwo. Passwordless — we email you a one-click sign-in link.">
+<meta name="theme-color" content="#15100E"><meta name="robots" content="noindex">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%2315100E'/%3E%3Ccircle cx='16' cy='16' r='8' fill='none' stroke='%23FF3A20' stroke-width='3'/%3E%3Ccircle cx='16' cy='16' r='2.5' fill='%23FF3A20'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@500;600;700;800;900&family=Hanken+Grotesk:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="supabase-config.js"></script>
+<style>
+  :root{--ink:#15100E;--ink-2:#1D1613;--bone:#F0E7D9;--bone-dim:#B3A593;--scarlet:#FF3A20;--oxblood:#6E241B;
+    --display:'Figtree',system-ui,sans-serif;--body:'Hanken Grotesk',system-ui,sans-serif;--mono:'Space Mono',ui-monospace,monospace;--gut:clamp(20px,5vw,64px)}
+  *{box-sizing:border-box}@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+  body{margin:0;background:var(--ink);color:var(--bone);font-family:var(--body);font-size:18px;line-height:1.55;-webkit-font-smoothing:antialiased}
+  body::after{content:"";position:fixed;inset:0;z-index:9999;pointer-events:none;opacity:.05;mix-blend-mode:overlay;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+  a{color:inherit;text-decoration:none}:focus-visible{outline:2px solid var(--scarlet);outline-offset:3px}
+  .nav{position:sticky;top:0;z-index:100;background:color-mix(in srgb,var(--ink) 86%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid rgba(240,231,217,.10)}
+  .nav-inner{max-width:1240px;margin:0 auto;padding:0 var(--gut);display:flex;align-items:center;justify-content:space-between;height:70px}
+  .logo{display:inline-flex;align-items:center;gap:11px;font-family:var(--display);font-weight:800;font-size:20px;letter-spacing:-.03em}.logo b{color:var(--scarlet)}
+  .back{font-family:var(--mono);font-size:13px;color:var(--bone-dim)}.back:hover{color:var(--bone)}
+  .wrap{max-width:460px;margin:0 auto;padding:clamp(48px,9vh,90px) var(--gut) 80px}
+  .eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--scarlet);display:flex;align-items:center;gap:10px}
+  .eyebrow::before{content:"";width:26px;height:1px;background:var(--scarlet);display:inline-block}
+  h1{font-family:var(--display);font-weight:800;letter-spacing:-.02em;line-height:1.02;font-size:clamp(32px,6vw,46px);margin:14px 0 0}
+  .sub{color:var(--bone-dim);margin:14px 0 0}
+  .tabs{display:flex;gap:8px;margin:30px 0 0;background:var(--ink-2);border:1px solid rgba(240,231,217,.12);border-radius:100px;padding:5px}
+  .tab{flex:1;text-align:center;font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--bone-dim);padding:10px;border-radius:100px;cursor:pointer;border:0;background:transparent;transition:.2s}
+  .tab.active{background:var(--scarlet);color:#1a0c08;font-weight:700}
+  form{margin:26px 0 0}
+  label{display:block;font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--bone-dim);margin:0 0 8px}
+  input{width:100%;background:var(--ink-2);border:1px solid rgba(240,231,217,.16);border-radius:5px;color:var(--bone);font-family:var(--body);font-size:16px;padding:14px;margin:0 0 16px}
+  input:focus{outline:none;border-color:var(--scarlet)}
+  .btn{width:100%;font-family:var(--mono);font-size:14px;letter-spacing:.04em;background:var(--scarlet);color:#1a0c08;font-weight:700;padding:15px;border-radius:5px;border:0;cursor:pointer;transition:.15s}
+  .btn:hover{background:#ff5238}.btn:disabled{opacity:.5;cursor:default}
+  .hint{font-family:var(--mono);font-size:11px;color:var(--bone-dim);margin-top:4px}
+  .msg{margin-top:20px;border-radius:8px;padding:18px;display:none;font-size:15px}
+  .msg.show{display:block}
+  .msg.ok{background:radial-gradient(120% 120% at 20% 0%,#33170f,var(--ink-2));border:1px solid rgba(255,58,32,.4)}
+  .msg.info{background:var(--ink-2);border:1px solid rgba(240,231,217,.16);color:var(--bone-dim)}
+  .msg.err{background:rgba(255,58,32,.08);border:1px solid rgba(255,58,32,.35);color:var(--scarlet);font-family:var(--mono);font-size:13px}
+  .msg b{color:var(--bone);font-weight:700;font-family:var(--display)}
+  .foot-note{font-family:var(--mono);font-size:11px;color:var(--bone-dim);margin-top:26px;line-height:1.7}
+  .foot-note a{color:var(--scarlet);text-decoration:underline}
+</style>
+</head>
+<body>
+<header class="nav"><div class="nav-inner">
+  <a class="logo" href="index.html" aria-label="twentytwo home"><svg width="24" height="24" viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="13" fill="none" stroke="#FF3A20" stroke-width="2.5"/><circle cx="16" cy="16" r="4" fill="#FF3A20"/></svg><span>twenty<b>two</b></span></a>
+  <a class="back" href="index.html">← Home</a>
+</div></header>
+
+<main class="wrap">
+  <div class="eyebrow">Members</div>
+  <h1>Log in or sign up.</h1>
+  <p class="sub">No passwords. We email you a one-click link to sign in.</p>
+
+  <div class="tabs" role="tablist">
+    <button class="tab active" id="tabCreator" type="button">I'm a creator</button>
+    <button class="tab" id="tabBrand" type="button">I'm a brand</button>
+  </div>
+
+  <!-- creator -->
+  <form id="creatorForm">
+    <label for="cEmail">Email</label>
+    <input id="cEmail" type="email" required placeholder="you@email.com" autocomplete="email">
+    <button class="btn" type="submit">Email me a sign-in link</button>
+  </form>
+
+  <!-- brand -->
+  <form id="brandForm" style="display:none">
+    <label for="bCompany">Company</label>
+    <input id="bCompany" required placeholder="Acme Inc.">
+    <label for="bEmail">Work email</label>
+    <input id="bEmail" type="email" required placeholder="you@company.com" autocomplete="email">
+    <div class="hint" style="margin:-10px 0 16px">Use your company email — one account per company domain.</div>
+    <button class="btn" type="submit">Email me a sign-in link</button>
+  </form>
+
+  <div class="msg" id="msg"></div>
+
+  <div class="foot-note">
+    By continuing you agree to our <a href="terms.html">Terms</a> and <a href="privacy.html">Privacy</a>.<br>
+    New creator? You can also <a href="join.html">apply to the roster</a>.
+  </div>
+</main>
+
+<script>
+  var msg = document.getElementById('msg');
+  function showMsg(kind, html){ msg.className = 'msg show ' + kind; msg.innerHTML = html; }
+  function ready(){ return window.supaReady && window.supaReady(); }
+
+  // tab switching
+  var cForm = document.getElementById('creatorForm'), bForm = document.getElementById('brandForm');
+  var tC = document.getElementById('tabCreator'), tB = document.getElementById('tabBrand');
+  tC.addEventListener('click', function(){ tC.classList.add('active'); tB.classList.remove('active'); cForm.style.display=''; bForm.style.display='none'; msg.className='msg'; });
+  tB.addEventListener('click', function(){ tB.classList.add('active'); tC.classList.remove('active'); bForm.style.display=''; cForm.style.display='none'; msg.className='msg'; });
+
+  // already signed in? offer the dashboard
+  (async function(){
+    if(!ready()) return;
+    try { var s = await window.supaAuth.session(); if (s) showMsg('info', "You're already signed in. <a href='dashboard.html' style='color:var(--scarlet);text-decoration:underline'>Go to your dashboard →</a>"); } catch(e){}
+  })();
+
+  // creator login
+  cForm.addEventListener('submit', async function(e){
+    e.preventDefault();
+    if(!ready()){ showMsg('err','Sign-in is not configured yet.'); return; }
+    var email = document.getElementById('cEmail').value.trim();
+    var btn = cForm.querySelector('button'); btn.disabled = true; btn.textContent = 'Sending…';
+    try {
+      var r = await window.supaAuth.loginLink(email, { role:'creator' });
+      if (r.error) throw r.error;
+      showMsg('ok', "<b>Check your email.</b><br>We sent a sign-in link to " + email + ". Click it to reach your dashboard.");
+      cForm.style.display='none';
+    } catch(err){ showMsg('err', 'Could not send link: ' + (err.message||err)); }
+    btn.disabled = false; btn.textContent = 'Email me a sign-in link';
+  });
+
+  // brand login / signup with domain collision check
+  bForm.addEventListener('submit', async function(e){
+    e.preventDefault();
+    if(!ready()){ showMsg('err','Sign-in is not configured yet.'); return; }
+    var company = document.getElementById('bCompany').value.trim();
+    var email = document.getElementById('bEmail').value.trim();
+    var domain = (email.split('@')[1]||'').trim().toLowerCase();
+    if(!domain){ showMsg('err','Enter a valid work email.'); return; }
+    var btn = bForm.querySelector('button'); btn.disabled = true; btn.textContent = 'Checking…';
+    try {
+      var taken = await window.supaDomainTaken(domain);
+      if (taken.error) throw taken.error;
+      if (taken.data === true) {
+        // domain already registered: do NOT create a duplicate; notify the account holder (email wired separately)
+        await window.supaBrandRequest({ domain: domain, requester_email: email, company: company });
+        showMsg('info', "<b style='color:var(--bone)'>Your organisation already has a twentytwo account.</b><br><br>To keep one account per company, we've let the existing account holder for <b style='color:var(--bone)'>" + domain + "</b> know you'd like access — they can add you. We never share their details with you, or yours with anyone else.");
+        bForm.style.display='none';
+      } else {
+        var r = await window.supaAuth.loginLink(email, { role:'brand', company: company, domain: domain });
+        if (r.error) throw r.error;
+        showMsg('ok', "<b>Check your email.</b><br>We sent a sign-in link to " + email + ". You'll be the account holder for " + domain + ".");
+        bForm.style.display='none';
+      }
+    } catch(err){ showMsg('err', 'Something went wrong: ' + (err.message||err)); }
+    btn.disabled = false; btn.textContent = 'Email me a sign-in link';
+  });
+</script>
+</body>
+</html>
