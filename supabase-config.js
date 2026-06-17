@@ -1,9 +1,9 @@
-/* 22s — Supabase front-end config
+/* twentytwo — Supabase front-end config
  * Paste your project's two PUBLIC values below (Supabase dashboard → Settings → API).
  * Both are safe to ship in client-side code — Row Level Security protects your data.
  * Until these are filled in, the forms fall back to email/sample mode automatically.
  */
-window.SUPA_URL  = "https://rfdfiuzepxdrfldbbsbo.supabase.co";   // 22s Agency project
+window.SUPA_URL  = "https://rfdfiuzepxdrfldbbsbo.supabase.co";   // twentytwo Agency project
 window.SUPA_ANON = "sb_publishable_Of7Fz-LcWZkf14fgxu6UMg_XhtqWumj";   // publishable (public) key — safe to ship
 
 (function () {
