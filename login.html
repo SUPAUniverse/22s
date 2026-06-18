@@ -135,6 +135,7 @@
       if (taken.data === true) {
         // domain already registered: do NOT create a duplicate; notify the account holder (email wired separately)
         await window.supaBrandRequest({ domain: domain, requester_email: email, company: company });
+        try{ await window.supaClient.functions.invoke('notify-brand-holder', { body:{ domain: domain, requester_email: email } }); }catch(_){}
         showMsg('info', "<b style='color:var(--bone)'>Your organisation already has a twentytwo account.</b><br><br>To keep one account per company, we've let the existing account holder for <b style='color:var(--bone)'>" + domain + "</b> know you'd like access — they can add you. We never share their details with you, or yours with anyone else.");
         bForm.style.display='none';
       } else {
