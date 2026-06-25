@@ -151,13 +151,15 @@
   .six-demo{margin-top:46px;display:grid;grid-template-columns:repeat(6,1fr);gap:10px}
   @media(max-width:880px){.six-demo{grid-template-columns:repeat(3,1fr)}}
   @media(max-width:480px){.six-demo{grid-template-columns:repeat(2,1fr)}}
-  .slot{aspect-ratio:1;border:1px dashed rgba(240,231,217,.25);border-radius:6px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;background:var(--ink);transition:.25s;position:relative}
-  .slot .rank{position:absolute;top:8px;left:10px;font-family:var(--mono);font-size:11px;color:var(--bone-dim)}
+  .slot{aspect-ratio:1;border:1px dashed rgba(240,231,217,.25);border-radius:10px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;background:var(--ink);transition:.25s;position:relative;overflow:hidden}
+  .slot .rank{position:absolute;z-index:2;top:8px;left:8px;font-family:var(--mono);font-size:11px;color:var(--bone);background:rgba(21,16,14,.72);backdrop-filter:blur(2px);padding:3px 7px;border-radius:5px}
   .slot .pick{font-family:var(--display);font-weight:800;font-size:clamp(15px,1.7vw,20px)}
-  .slot .st{font-family:var(--mono);font-size:9.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--bone-dim)}
+  .slot .st{position:absolute;z-index:2;left:0;right:0;bottom:0;font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--bone-dim);text-align:center;padding:20px 8px 9px;background:linear-gradient(rgba(21,16,14,0),rgba(21,16,14,.88) 55%)}
   .slot.filled{border-style:solid;border-color:rgba(255,58,32,.45);background:radial-gradient(120% 120% at 30% 10%,#33170f,var(--ink))}
   .slot.filled .st{color:var(--scarlet)}
   .slot.empty .pick{color:var(--bone-dim);opacity:.6}
+  .slot .brandmark{font-weight:800;letter-spacing:-.02em;font-size:clamp(16px,1.9vw,22px);text-align:center;line-height:1;padding:0 6px}
+  .slot .logo-img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;background:#fff;padding:13%;box-sizing:border-box}
 
   /* RANKING BOARD */
   .board-head{display:flex;align-items:flex-end;justify-content:space-between;gap:20px;flex-wrap:wrap;margin-bottom:26px}
@@ -175,7 +177,8 @@
   .board .row:nth-child(2) .rk{color:var(--scarlet)}
   .board .row:nth-child(3) .rk,.board .row:nth-child(4) .rk{color:var(--gold)}
   .who{display:flex;align-items:center;gap:12px;min-width:0}
-  .who .av{width:40px;height:40px;border-radius:50%;flex:none;background:radial-gradient(120% 120% at 30% 20%,#5a241a,#15100E);border:1px solid rgba(240,231,217,.15)}
+  .who .av{width:40px;height:40px;border-radius:50%;flex:none;overflow:hidden;position:relative;background:radial-gradient(120% 120% at 30% 20%,#5a241a,#15100E);border:1px solid rgba(240,231,217,.15)}
+  .who .av img{width:100%;height:100%;object-fit:cover;display:block}
   .who .nm{font-family:var(--display);font-weight:800;font-size:17px;line-height:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:flex;align-items:center;gap:6px}
   .who .nm .ver{flex:none;display:inline-grid;place-items:center;width:15px;height:15px;border-radius:50%;background:var(--scarlet);color:#1a0c08;font-size:9px;font-weight:700;font-family:var(--mono)}
   .who .nm .ver svg{width:9px;height:9px}
@@ -186,7 +189,20 @@
   .score small{display:block;font-family:var(--mono);font-weight:400;font-size:9.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--bone-dim)}
   .board-foot{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;margin-top:18px}
   .board-foot .note{font-family:var(--mono);font-size:11.5px;color:var(--bone-dim)}
+  /* interactive board controls */
+  .board-search{font-family:var(--mono);font-size:12px;color:var(--bone);background:var(--ink-2);border:1px solid rgba(240,231,217,.14);border-radius:100px;padding:9px 16px 9px 36px;min-width:210px;outline:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23B3A593' stroke-width='2'%3E%3Ccircle cx='11' cy='11' r='7'/%3E%3Cpath d='M21 21l-4.3-4.3'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:12px center;background-size:15px}
+  .board-search:focus{border-color:var(--scarlet)}
+  .board-search::placeholder{color:var(--bone-dim)}
+  .board-meta{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin:0 0 12px}
+  #boardCount{font-family:var(--mono);font-size:11.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--scarlet)}
+  .sortbtn{font-family:inherit;font-size:inherit;letter-spacing:inherit;text-transform:inherit;color:inherit;background:none;border:0;padding:0;margin:0;cursor:pointer;text-align:left;display:inline-flex;align-items:center;gap:5px;transition:color .2s}
+  .sortbtn:hover{color:var(--bone)}
+  .sortbtn.active{color:var(--scarlet)}
+  .sortbtn .ar{font-size:8px;line-height:1}
+  .board .rowh .sortbtn[data-sort="score"]{justify-self:end}
+  .board-empty{padding:34px 18px;font-family:var(--mono);font-size:13px;color:var(--bone-dim);text-align:center}
   @media(max-width:760px){
+    .board-search{flex:1 1 100%;min-width:0}
     .board .rowh{display:none}
     .board .row{grid-template-columns:42px 1fr auto;grid-template-areas:"rk who score" "rk meta score";row-gap:6px;padding:14px}
     .board .rk{grid-area:rk}.who{grid-area:who}.score{grid-area:score}
@@ -368,12 +384,12 @@
       <h2 class="big">Your <em>top&nbsp;six.</em></h2>
       <p class="sub">Six brands you'd back for free, ranked in the order you actually feel them. That list is the brief. We go and win them, from the top down. No performing love you don't feel.</p>
       <div class="six-demo">
-        <div class="slot filled"><span class="rank">01</span><span class="pick">Brand A</span><span class="st">● Won</span></div>
-        <div class="slot filled"><span class="rank">02</span><span class="pick">Brand B</span><span class="st">● Won</span></div>
-        <div class="slot filled"><span class="rank">03</span><span class="pick">Brand C</span><span class="st">In talks</span></div>
-        <div class="slot empty"><span class="rank">04</span><span class="pick">+ add</span><span class="st">your pick</span></div>
-        <div class="slot empty"><span class="rank">05</span><span class="pick">+ add</span><span class="st">your pick</span></div>
-        <div class="slot empty"><span class="rank">06</span><span class="pick">+ add</span><span class="st">your pick</span></div>
+        <div class="slot filled"><span class="rank">01</span><img class="logo-img" src="https://cdn.simpleicons.org/spotify" alt="Spotify" onerror="this.onerror=null;this.src='https://icon.horse/icon/spotify.com'"><span class="st">● Won</span></div>
+        <div class="slot filled"><span class="rank">02</span><img class="logo-img" src="https://cdn.simpleicons.org/monzo" alt="Monzo" onerror="this.onerror=null;this.src='https://icon.horse/icon/monzo.com'"><span class="st">● Won</span></div>
+        <div class="slot filled"><span class="rank">03</span><img class="logo-img" src="https://icon.horse/icon/gymshark.com" alt="Gymshark" onerror="this.onerror=null;this.src='https://www.google.com/s2/favicons?domain=gymshark.com&sz=128'"><span class="st">In talks</span></div>
+        <div class="slot filled"><span class="rank">04</span><img class="logo-img" src="https://icon.horse/icon/marksandspencer.com" alt="Marks &amp; Spencer" onerror="this.onerror=null;this.src='https://www.google.com/s2/favicons?domain=marksandspencer.com&sz=128'"><span class="st">In talks</span></div>
+        <div class="slot filled"><span class="rank">05</span><img class="logo-img" src="https://icon.horse/icon/sharkclean.co.uk" alt="Shark" onerror="this.onerror=null;this.src='https://www.google.com/s2/favicons?domain=sharkclean.co.uk&sz=128'"><span class="st">● Won</span></div>
+        <div class="slot filled"><span class="rank">06</span><img class="logo-img" src="https://icon.horse/icon/morleyschicken.com" alt="Morley's" onerror="this.onerror=null;this.src='https://www.google.com/s2/favicons?domain=morleyschicken.com&sz=128'"><span class="st">In talks</span></div>
       </div>
     </div>
   </section>
@@ -395,12 +411,30 @@
           <button class="chip" data-cat="food">Food</button>
           <button class="chip" data-cat="sport">Sport</button>
           <button class="chip" data-cat="beauty">Beauty</button>
+          <button class="chip" data-cat="health">Health</button>
+          <button class="chip" data-cat="tech">Tech</button>
+          <button class="chip" data-cat="entertainment">Entertainment</button>
+          <button class="chip" data-cat="home">Home</button>
+          <button class="chip" data-cat="pets">Pets</button>
+          <button class="chip" data-cat="lifestyle">Lifestyle</button>
         </div>
-        <span class="board-foot note">Membership is capped · referrals prioritised</span>
+        <input id="boardSearch" class="board-search" type="search" placeholder="Search creators…" aria-label="Search creators by name or handle">
+      </div>
+
+      <div class="board-meta reveal">
+        <span id="boardCount"></span>
+        <span class="board-foot note">Tap a column to sort · live UK data</span>
       </div>
 
       <div class="board reveal" id="board">
-        <div class="rowh"><span>Rank</span><span>Creator</span><span>Category</span><span>Reach</span><span>Eng.</span><span>Passion Score</span></div>
+        <div class="rowh">
+          <span>Rank</span>
+          <button class="sortbtn" data-sort="nm">Creator</button>
+          <button class="sortbtn" data-sort="catL">Category</button>
+          <button class="sortbtn" data-sort="foll">Reach</button>
+          <button class="sortbtn" data-sort="engN">Eng.</button>
+          <button class="sortbtn active" data-sort="score">Passion Score</button>
+        </div>
         <!-- rows injected -->
       </div>
 
@@ -556,27 +590,362 @@
 
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  // ranking data (sample — replace with live profiles)
+  // ranking data — real UK creators (CreatorIQ community, Jun 2026). reach=followers, engN=engagement %, score=Passion Score.
   var TALENT=[
-    {nm:'Amara Quaye', hd:'@amaraquaye', cat:'music', catL:'Music & film', reach:'412K', eng:'7.8%', score:94, ver:true},
-    {nm:'Theo Marsh', hd:'@theomarsh', cat:'fashion', catL:'Fashion', reach:'288K', eng:'6.1%', score:90, ver:true},
-    {nm:'Priya Raman', hd:'@priyaeats', cat:'food', catL:'Food & culture', reach:'526K', eng:'5.4%', score:88, ver:true},
-    {nm:'Jude Okafor', hd:'@jude.run', cat:'sport', catL:'Sport', reach:'201K', eng:'9.2%', score:86, ver:true},
-    {nm:'Lena Frost', hd:'@lenafrost', cat:'fashion', catL:'Lifestyle', reach:'333K', eng:'6.7%', score:83, ver:false},
-    {nm:'Sol Mendes', hd:'@solmakes', cat:'beauty', catL:'Beauty', reach:'274K', eng:'8.0%', score:81, ver:true},
-    {nm:'Remi Cole', hd:'@remi.cole', cat:'music', catL:'Music', reach:'158K', eng:'10.4%', score:79, ver:false},
-    {nm:'Halima Said', hd:'@halimasaid', cat:'food', catL:'Food', reach:'190K', eng:'7.1%', score:76, ver:true}
+    {nm:"Grandad Frank",hd:"@grandadfrankk",cat:"entertainment",catL:"Entertainment",foll:7900000,reach:"7.9M",engN:18.39,eng:"18.4%",score:98},
+    {nm:"ItalianBach",hd:"@italianbach",cat:"music",catL:"Music & film",foll:3300000,reach:"3.3M",engN:14.35,eng:"14.3%",score:96},
+    {nm:"georgeclarkeey",hd:"@georgeclarkeey",cat:"music",catL:"Music & film",foll:2500000,reach:"2.5M",engN:16.06,eng:"16.1%",score:96},
+    {nm:"ASH",hd:"@ash_holme",cat:"entertainment",catL:"Entertainment",foll:1600000,reach:"1.6M",engN:15.09,eng:"15.1%",score:95},
+    {nm:"Ieuan Jones",hd:"@ieuanjoness",cat:"lifestyle",catL:"Lifestyle",foll:1100000,reach:"1.1M",engN:11.99,eng:"12.0%",score:95},
+    {nm:"Arthur TV",hd:"@arthur_tv",cat:"music",catL:"Music & film",foll:555500,reach:"556K",engN:17.37,eng:"17.4%",score:93},
+    {nm:"Grace Keeling",hd:"@gkbarry",cat:"entertainment",catL:"Entertainment",foll:4200000,reach:"4.2M",engN:8.79,eng:"8.8%",score:92},
+    {nm:"Shirley",hd:"@duhitzshirley",cat:"beauty",catL:"Beauty",foll:388100,reach:"388K",engN:11.57,eng:"11.6%",score:92},
+    {nm:"Nancymorel",hd:"@nancy.xoxx",cat:"lifestyle",catL:"Lifestyle",foll:1820000,reach:"1.82M",engN:9.03,eng:"9.0%",score:91},
+    {nm:"Paul",hd:"@puwtok",cat:"lifestyle",catL:"Lifestyle",foll:891300,reach:"891K",engN:9.9,eng:"9.9%",score:91},
+    {nm:"Rachel Spicer",hd:"@rachelspicer_",cat:"lifestyle",catL:"Lifestyle",foll:2500000,reach:"2.5M",engN:8.39,eng:"8.4%",score:91},
+    {nm:"Grandadjoe",hd:"@grandadjoe1933",cat:"entertainment",catL:"Entertainment",foll:9200000,reach:"9.2M",engN:6.67,eng:"6.7%",score:91},
+    {nm:"Max Balegde",hd:"@max_balegde",cat:"music",catL:"Music & film",foll:3600000,reach:"3.6M",engN:7.22,eng:"7.2%",score:90},
+    {nm:"Ilya Selyn",hd:"@ilyaselyn",cat:"tech",catL:"Tech",foll:2500000,reach:"2.5M",engN:6.87,eng:"6.9%",score:89},
+    {nm:"Anastasia Kingsnorth",hd:"@anastasiakingsnorth",cat:"fashion",catL:"Fashion",foll:1600000,reach:"1.6M",engN:7.32,eng:"7.3%",score:89},
+    {nm:"EllaAndBenn",hd:"@ellaandbenn",cat:"lifestyle",catL:"Lifestyle",foll:2000000,reach:"2M",engN:6.19,eng:"6.2%",score:88},
+    {nm:"Paul Black",hd:"@paulbiack",cat:"lifestyle",catL:"Lifestyle",foll:246100,reach:"246K",engN:8.22,eng:"8.2%",score:87},
+    {nm:"Leah Williamson",hd:"@leahwilliamsonn",cat:"sport",catL:"Sport",foll:1260000,reach:"1.26M",engN:5.77,eng:"5.8%",score:87},
+    {nm:"georgia barratt",hd:"@georgia.barratt",cat:"lifestyle",catL:"Lifestyle",foll:1300000,reach:"1.3M",engN:6.29,eng:"6.3%",score:87},
+    {nm:"nayna florence",hd:"@naynaflorence",cat:"lifestyle",catL:"Lifestyle",foll:262000,reach:"262K",engN:8.17,eng:"8.2%",score:87},
+    {nm:"beauthebeard",hd:"@beauthebeard",cat:"entertainment",catL:"Entertainment",foll:832500,reach:"832K",engN:6.39,eng:"6.4%",score:87},
+    {nm:"Steven Bartlett",hd:"@thediaryofaceo",cat:"health",catL:"Health",foll:17600000,reach:"17.6M",engN:3.09,eng:"3.1%",score:87},
+    {nm:"Adama Lorna",hd:"@adamalorna",cat:"lifestyle",catL:"Lifestyle",foll:187000,reach:"187K",engN:7.36,eng:"7.4%",score:86},
+    {nm:"aliabdaal",hd:"@aliabdaal",cat:"tech",catL:"Tech",foll:6630000,reach:"6.63M",engN:3.36,eng:"3.4%",score:86},
+    {nm:"isawelly",hd:"@isawellypilates",cat:"sport",catL:"Sport",foll:508000,reach:"508K",engN:5.69,eng:"5.7%",score:85},
+    {nm:"PERLcosmetics",hd:"@isobelperlskin",cat:"beauty",catL:"Beauty",foll:279900,reach:"280K",engN:6.65,eng:"6.7%",score:85},
+    {nm:"crompton.maisie",hd:"@totesforyouu",cat:"fashion",catL:"Fashion",foll:210670,reach:"211K",engN:6.45,eng:"6.5%",score:85},
+    {nm:"Aleema Ali",hd:"@aleemaxali",cat:"lifestyle",catL:"Lifestyle",foll:1000000,reach:"1M",engN:4.57,eng:"4.6%",score:85},
+    {nm:"Jake Wright",hd:"@jakewrightnet",cat:"lifestyle",catL:"Lifestyle",foll:279000,reach:"279K",engN:5.76,eng:"5.8%",score:84},
+    {nm:"Amigoscode",hd:"@amigoscode",cat:"tech",catL:"Tech",foll:1090000,reach:"1.09M",engN:3.91,eng:"3.9%",score:84},
+    {nm:"sambentley",hd:"@sambentley",cat:"lifestyle",catL:"Lifestyle",foll:1880000,reach:"1.88M",engN:3.38,eng:"3.4%",score:84},
+    {nm:"cococosmeticsbychloe",hd:"@clomana",cat:"beauty",catL:"Beauty",foll:454600,reach:"455K",engN:4.99,eng:"5.0%",score:84},
+    {nm:"Jade Bowler",hd:"@unjadedjade",cat:"lifestyle",catL:"Lifestyle",foll:988000,reach:"988K",engN:4.47,eng:"4.5%",score:84},
+    {nm:"Charley Marlowe",hd:"@charleymarlowe",cat:"fashion",catL:"Fashion",foll:717900,reach:"718K",engN:4.66,eng:"4.7%",score:84},
+    {nm:"Charlyanne C",hd:"@charlyannec",cat:"lifestyle",catL:"Lifestyle",foll:832200,reach:"832K",engN:4.5,eng:"4.5%",score:84},
+    {nm:"Browniegod",hd:"@browniegod",cat:"lifestyle",catL:"Lifestyle",foll:602700,reach:"603K",engN:4.05,eng:"4.0%",score:83},
+    {nm:"gstaadguy",hd:"@gstaadguy",cat:"lifestyle",catL:"Lifestyle",foll:1840000,reach:"1.84M",engN:2.59,eng:"2.6%",score:83},
+    {nm:"Salim Ahmed",hd:"@doctorsalimahmed",cat:"health",catL:"Health",foll:200000,reach:"200K",engN:5.41,eng:"5.4%",score:83},
+    {nm:"Jenny and Lee Gogglebox",hd:"@jennyandlee_gogglebox",cat:"entertainment",catL:"Entertainment",foll:865040,reach:"865K",engN:3.51,eng:"3.5%",score:83},
+    {nm:"Lewis Leigh",hd:"@lewisleighh",cat:"lifestyle",catL:"Lifestyle",foll:2000000,reach:"2M",engN:2.82,eng:"2.8%",score:83},
+    {nm:"Daniel Rotar",hd:"@zoneoftech",cat:"tech",catL:"Tech",foll:1660000,reach:"1.66M",engN:1.99,eng:"2.0%",score:82},
+    {nm:"Paige",hd:"@paigey",cat:"lifestyle",catL:"Lifestyle",foll:199000,reach:"199K",engN:4.92,eng:"4.9%",score:82},
+    {nm:"Cameron",hd:"@cazzatime",cat:"lifestyle",catL:"Lifestyle",foll:435500,reach:"436K",engN:3.92,eng:"3.9%",score:82},
+    {nm:"samthompsonuk",hd:"@samthompsonuk",cat:"entertainment",catL:"Entertainment",foll:2890000,reach:"2.89M",engN:1.69,eng:"1.7%",score:82},
+    {nm:"aminathepharmacist",hd:"@aminathepharmacist",cat:"health",catL:"Health",foll:277500,reach:"278K",engN:3.85,eng:"3.9%",score:82},
+    {nm:"TechBible",hd:"@tech.bible",cat:"tech",catL:"Tech",foll:217600,reach:"218K",engN:3.93,eng:"3.9%",score:81},
+    {nm:"Dr Hazel Wallace",hd:"@drhazelwallace",cat:"health",catL:"Health",foll:1500000,reach:"1.5M",engN:1.1,eng:"1.1%",score:81},
+    {nm:"stephelswood",hd:"@stephelswood",cat:"lifestyle",catL:"Lifestyle",foll:265080,reach:"265K",engN:3.78,eng:"3.8%",score:81},
+    {nm:"gracebeverley",hd:"@gracebeverley",cat:"sport",catL:"Sport",foll:1190000,reach:"1.19M",engN:1.89,eng:"1.9%",score:81},
+    {nm:"Faye Bate",hd:"@drfayebate",cat:"health",catL:"Health",foll:633000,reach:"633K",engN:2.41,eng:"2.4%",score:81},
+    {nm:"Mike Elon",hd:"@mikedeeofficial",cat:"tech",catL:"Tech",foll:1140000,reach:"1.14M",engN:1.99,eng:"2.0%",score:81},
+    {nm:"Ellie Adams",hd:"@ellenextdoor",cat:"lifestyle",catL:"Lifestyle",foll:195270,reach:"195K",engN:3.58,eng:"3.6%",score:81},
+    {nm:"Elkis",hd:"@elkismakeup",cat:"beauty",catL:"Beauty",foll:8510,reach:"9K",engN:7.98,eng:"8.0%",score:81},
+    {nm:"Jack Rem",hd:"@jackremmington",cat:"music",catL:"Music & film",foll:193590,reach:"194K",engN:4.14,eng:"4.1%",score:81},
+    {nm:"Grime Gran",hd:"@grimegran",cat:"food",catL:"Food",foll:316210,reach:"316K",engN:3.11,eng:"3.1%",score:81},
+    {nm:"Nyrah Saleem",hd:"@healthwithnyrah",cat:"health",catL:"Health",foll:571200,reach:"571K",engN:2.39,eng:"2.4%",score:81},
+    {nm:"Alex Liu",hd:"@alexliu1",cat:"tech",catL:"Tech",foll:13800,reach:"14K",engN:6.62,eng:"6.6%",score:80},
+    {nm:"georginaburgess_",hd:"@georginaburgess_",cat:"fashion",catL:"Fashion",foll:561130,reach:"561K",engN:1.93,eng:"1.9%",score:80},
+    {nm:"Hannah Davies",hd:"@hannahdaviesgolf",cat:"sport",catL:"Sport",foll:144600,reach:"145K",engN:3.47,eng:"3.5%",score:80},
+    {nm:"Maverick Baking",hd:"@maverickbaking",cat:"food",catL:"Food",foll:87300,reach:"87K",engN:3.9,eng:"3.9%",score:80},
+    {nm:"big_fat_greekmother",hd:"@big_fat_greekmother",cat:"food",catL:"Food",foll:323740,reach:"324K",engN:2.67,eng:"2.7%",score:80},
+    {nm:"Sophie Milner",hd:"@itssophiemilner",cat:"fashion",catL:"Fashion",foll:201100,reach:"201K",engN:2.76,eng:"2.8%",score:80},
+    {nm:"Poppy Deyes",hd:"@poppydeyes",cat:"fashion",catL:"Fashion",foll:982730,reach:"983K",engN:1.08,eng:"1.1%",score:80},
+    {nm:"Mariam Musa",hd:"@itsmariammusa",cat:"lifestyle",catL:"Lifestyle",foll:748190,reach:"748K",engN:1.46,eng:"1.5%",score:80},
+    {nm:"Jess Asquith",hd:"@jessandnorma",cat:"lifestyle",catL:"Lifestyle",foll:2700000,reach:"2.7M",engN:0.0,eng:"0.0%",score:80},
+    {nm:"Pete Wicks",hd:"@p_wicks01",cat:"entertainment",catL:"Entertainment",foll:2069999,reach:"2.07M",engN:0.31,eng:"0.3%",score:80},
+    {nm:"Imani Evans",hd:"@imanievans_",cat:"lifestyle",catL:"Lifestyle",foll:154800,reach:"155K",engN:3.14,eng:"3.1%",score:80},
+    {nm:"Emi-Pug",hd:"@emi_pug",cat:"pets",catL:"Pets",foll:62130,reach:"62K",engN:3.59,eng:"3.6%",score:79},
+    {nm:"Soph",hd:"@sophjbutler",cat:"lifestyle",catL:"Lifestyle",foll:138930,reach:"139K",engN:3.01,eng:"3.0%",score:79},
+    {nm:"Lottie Murphy",hd:"@lottiemurphy",cat:"lifestyle",catL:"Lifestyle",foll:419000,reach:"419K",engN:1.78,eng:"1.8%",score:79},
+    {nm:"Thom Bateman Recipe Creator",hd:"@chefthombateman",cat:"food",catL:"Food",foll:1350000,reach:"1.35M",engN:0.17,eng:"0.2%",score:79},
+    {nm:"Teeuplo Golf Channel",hd:"@theaveragegolfer",cat:"sport",catL:"Sport",foll:122000,reach:"122K",engN:2.86,eng:"2.9%",score:79},
+    {nm:"Shu",hd:"@dejashu",cat:"lifestyle",catL:"Lifestyle",foll:72800,reach:"73K",engN:3.9,eng:"3.9%",score:79},
+    {nm:"Matt D",hd:"@d5construction",cat:"home",catL:"Home",foll:264100,reach:"264K",engN:2.34,eng:"2.3%",score:79},
+    {nm:"Sophie Craig",hd:"@shesnotfunny",cat:"entertainment",catL:"Entertainment",foll:1610000,reach:"1.61M",engN:0.1,eng:"0.1%",score:79},
+    {nm:"Kharma Medic",hd:"@kharmamedic",cat:"health",catL:"Health",foll:1160000,reach:"1.16M",engN:0.0,eng:"0.0%",score:79},
+    {nm:"Ellie Sleightholm",hd:"@elliesleightholm",cat:"tech",catL:"Tech",foll:148000,reach:"148K",engN:2.37,eng:"2.4%",score:79},
+    {nm:"megan",hd:"@meganshort",cat:"lifestyle",catL:"Lifestyle",foll:107000,reach:"107K",engN:2.99,eng:"3.0%",score:79},
+    {nm:"abrahamthepharmacist",hd:"@abrahamthepharmacist",cat:"health",catL:"Health",foll:851000,reach:"851K",engN:0.35,eng:"0.3%",score:79},
+    {nm:"Rupy Aujla",hd:"@doctors_kitchen",cat:"health",catL:"Health",foll:693590,reach:"694K",engN:0.59,eng:"0.6%",score:79},
+    {nm:"ameliaxsalmon",hd:"@ameliaxsalmon",cat:"lifestyle",catL:"Lifestyle",foll:15300,reach:"15K",engN:5.11,eng:"5.1%",score:79},
+    {nm:"Charlotte Taylor",hd:"@charlottetaylr",cat:"lifestyle",catL:"Lifestyle",foll:369320,reach:"369K",engN:0.78,eng:"0.8%",score:78},
+    {nm:"david.birtwistle",hd:"@david.birtwistle",cat:"tech",catL:"Tech",foll:693210,reach:"693K",engN:0.11,eng:"0.1%",score:78},
+    {nm:"Psychologee",hd:"@psychologee",cat:"health",catL:"Health",foll:739200,reach:"739K",engN:0.0,eng:"0.0%",score:78},
+    {nm:"Anna Williamson",hd:"@annawilliamsonofficial",cat:"lifestyle",catL:"Lifestyle",foll:520700,reach:"521K",engN:0.71,eng:"0.7%",score:78},
+    {nm:"Deborah Meaden",hd:"@DeborahMeaden",cat:"lifestyle",catL:"Lifestyle",foll:693370,reach:"693K",engN:0.19,eng:"0.2%",score:78},
+    {nm:"Dr Amina Y",hd:"@draminayonis",cat:"health",catL:"Health",foll:480000,reach:"480K",engN:0.75,eng:"0.8%",score:78},
+    {nm:"adeolapatronne",hd:"@adeolapatronne",cat:"fashion",catL:"Fashion",foll:247520,reach:"248K",engN:1.67,eng:"1.7%",score:78},
+    {nm:"Emily Willcox",hd:"@emilyannwillcox",cat:"lifestyle",catL:"Lifestyle",foll:657520,reach:"658K",engN:0.18,eng:"0.2%",score:78},
+    {nm:"Ben Goldacre",hd:"@bengoldacre",cat:"health",catL:"Health",foll:391680,reach:"392K",engN:0.0,eng:"0.0%",score:77},
+    {nm:"Tally Rye",hd:"@tallyrye",cat:"sport",catL:"Sport",foll:138630,reach:"139K",engN:1.62,eng:"1.6%",score:77},
+    {nm:"Poku Banks",hd:"@pokubanks",cat:"sport",catL:"Sport",foll:330800,reach:"331K",engN:0.0,eng:"0.0%",score:77},
+    {nm:"Aimee Kilgour",hd:"@aimeekayofficial",cat:"lifestyle",catL:"Lifestyle",foll:60330,reach:"60K",engN:2.1,eng:"2.1%",score:77},
+    {nm:"thelondonlady__",hd:"@thelondonlady__",cat:"tech",catL:"Tech",foll:14160,reach:"14K",engN:4.06,eng:"4.1%",score:77},
+    {nm:"This Girl Can Organise TGCO",hd:"@thisgirlcanorganise",cat:"home",catL:"Home",foll:224680,reach:"225K",engN:0.42,eng:"0.4%",score:77},
+    {nm:"Josh Patterson",hd:"@joshuapatterson_jp",cat:"lifestyle",catL:"Lifestyle",foll:427730,reach:"428K",engN:0.0,eng:"0.0%",score:77},
+    {nm:"Bryony Blake",hd:"@bryony_blake",cat:"lifestyle",catL:"Lifestyle",foll:223890,reach:"224K",engN:0.6,eng:"0.6%",score:77},
+    {nm:"calumharris",hd:"@calumharris",cat:"tech",catL:"Tech",foll:257500,reach:"258K",engN:0.58,eng:"0.6%",score:77},
+    {nm:"juliesgram",hd:"@juliestanton__",cat:"lifestyle",catL:"Lifestyle",foll:165450,reach:"165K",engN:1.16,eng:"1.2%",score:77},
+    {nm:"Charlotte Taylor",hd:"@maison_de_sable",cat:"lifestyle",catL:"Lifestyle",foll:223830,reach:"224K",engN:0.01,eng:"0.0%",score:76},
+    {nm:"Petia Davidova",hd:"@petiadavidova",cat:"lifestyle",catL:"Lifestyle",foll:23300,reach:"23K",engN:2.8,eng:"2.8%",score:76},
+    {nm:"Esmee Gummer",hd:"@esmee_ldn",cat:"fashion",catL:"Fashion",foll:71210,reach:"71K",engN:1.25,eng:"1.2%",score:76},
+    {nm:"sophievj",hd:"@sophievj",cat:"lifestyle",catL:"Lifestyle",foll:93320,reach:"93K",engN:0.75,eng:"0.8%",score:76},
+    {nm:"Jess",hd:"@thejess.jones",cat:"lifestyle",catL:"Lifestyle",foll:76730,reach:"77K",engN:0.95,eng:"0.9%",score:76},
+    {nm:"sparklesandskin",hd:"@sparklesandskin",cat:"beauty",catL:"Beauty",foll:147220,reach:"147K",engN:0.21,eng:"0.2%",score:76},
+    {nm:"The FaceBible NHS GP Doctor",hd:"@dr_rajarora",cat:"health",catL:"Health",foll:67970,reach:"68K",engN:1.28,eng:"1.3%",score:76},
+    {nm:"Lydia Violeta",hd:"@lydiavioleta_",cat:"lifestyle",catL:"Lifestyle",foll:248000,reach:"248K",engN:0.0,eng:"0.0%",score:76},
+    {nm:"Lucy Wang",hd:"@lucywangyuxin",cat:"tech",catL:"Tech",foll:169000,reach:"169K",engN:0.0,eng:"0.0%",score:76},
+    {nm:"Emily Campbell",hd:"@emilycampbell",cat:"lifestyle",catL:"Lifestyle",foll:51500,reach:"52K",engN:1.84,eng:"1.8%",score:76},
+    {nm:"Michelle Collins",hd:"@missmcollins",cat:"lifestyle",catL:"Lifestyle",foll:187110,reach:"187K",engN:0.03,eng:"0.0%",score:76},
+    {nm:"Birmingham Updates",hd:"@bhamupdates",cat:"lifestyle",catL:"Lifestyle",foll:148170,reach:"148K",engN:0.25,eng:"0.2%",score:76},
+    {nm:"abisguideto",hd:"@abisguideto",cat:"lifestyle",catL:"Lifestyle",foll:58060,reach:"58K",engN:1.3,eng:"1.3%",score:76},
+    {nm:"Alfie The Pug",hd:"@alfiethepug_beat",cat:"pets",catL:"Pets",foll:108750,reach:"109K",engN:0.16,eng:"0.2%",score:75},
+    {nm:"herhelloworld",hd:"@herhelloworld",cat:"tech",catL:"Tech",foll:90540,reach:"91K",engN:0.0,eng:"0.0%",score:75},
+    {nm:"Filip",hd:"@developerfilip",cat:"tech",catL:"Tech",foll:108000,reach:"108K",engN:0.0,eng:"0.0%",score:75},
+    {nm:"rona_renovation",hd:"@nads_bacchus",cat:"home",catL:"Home",foll:33290,reach:"33K",engN:1.82,eng:"1.8%",score:75},
+    {nm:"monkidj",hd:"@monkidj",cat:"music",catL:"Music & film",foll:41460,reach:"41K",engN:1.54,eng:"1.5%",score:75},
+    {nm:"Sophia Cook",hd:"@sophiarcook",cat:"lifestyle",catL:"Lifestyle",foll:40380,reach:"40K",engN:0.9,eng:"0.9%",score:75},
+    {nm:"Charlie Running Active Travel",hd:"@therunnerbeans",cat:"sport",catL:"Sport",foll:86250,reach:"86K",engN:0.19,eng:"0.2%",score:75},
+    {nm:"chantellechamps",hd:"@chantellechamps",cat:"lifestyle",catL:"Lifestyle",foll:97370,reach:"97K",engN:0.41,eng:"0.4%",score:75},
+    {nm:"Curly Little Dreams",hd:"@curlylittledreams",cat:"pets",catL:"Pets",foll:20080,reach:"20K",engN:2.01,eng:"2.0%",score:75},
+    {nm:"jess.olo",hd:"@jess.olo",cat:"lifestyle",catL:"Lifestyle",foll:32800,reach:"33K",engN:1.45,eng:"1.4%",score:75},
+    {nm:"Gals Who Graduate",hd:"@galswho",cat:"lifestyle",catL:"Lifestyle",foll:68000,reach:"68K",engN:0.58,eng:"0.6%",score:75},
+    {nm:"Lilly The Himalayan",hd:"@lillythehimalayan",cat:"pets",catL:"Pets",foll:56350,reach:"56K",engN:0.2,eng:"0.2%",score:74},
+    {nm:"Miss Maddie",hd:"@maddie_and_family",cat:"pets",catL:"Pets",foll:32720,reach:"33K",engN:0.5,eng:"0.5%",score:74},
+    {nm:"REGAL DOG",hd:"@regaldoguk",cat:"pets",catL:"Pets",foll:55480,reach:"55K",engN:0.03,eng:"0.0%",score:74},
+    {nm:"Simon Crowther",hd:"@sim.crowther",cat:"lifestyle",catL:"Lifestyle",foll:13100,reach:"13K",engN:1.61,eng:"1.6%",score:74},
+    {nm:"sophiebertrand_",hd:"@sophiebertrand_",cat:"fashion",catL:"Fashion",foll:45930,reach:"46K",engN:0.2,eng:"0.2%",score:74},
+    {nm:"Laura's Little Locket Home",hd:"@laurabyrneshome",cat:"home",catL:"Home",foll:69940,reach:"70K",engN:0.0,eng:"0.0%",score:74},
+    {nm:"Harper Adams University",hd:"@harperadamsuni",cat:"lifestyle",catL:"Lifestyle",foll:14940,reach:"15K",engN:1.38,eng:"1.4%",score:74},
+    {nm:"Mari Stracke",hd:"@maristracke",cat:"lifestyle",catL:"Lifestyle",foll:46310,reach:"46K",engN:0.0,eng:"0.0%",score:74},
+    {nm:"Laura Cranston",hd:"@girltalkwithlaura",cat:"lifestyle",catL:"Lifestyle",foll:26210,reach:"26K",engN:0.77,eng:"0.8%",score:74},
+    {nm:"faithmartinxo",hd:"@faithmartinxo",cat:"beauty",catL:"Beauty",foll:30380,reach:"30K",engN:0.67,eng:"0.7%",score:74},
+    {nm:"Tash",hd:"@athomewithtash_xo",cat:"lifestyle",catL:"Lifestyle",foll:54230,reach:"54K",engN:0.21,eng:"0.2%",score:74},
+    {nm:"ellanicolawills",hd:"@ellanicolawills",cat:"lifestyle",catL:"Lifestyle",foll:46590,reach:"47K",engN:0.0,eng:"0.0%",score:74},
+    {nm:"tashakiran",hd:"@tashakiranx",cat:"lifestyle",catL:"Lifestyle",foll:74200,reach:"74K",engN:0.07,eng:"0.1%",score:74},
+    {nm:"emmaguns",hd:"@emmaguns",cat:"lifestyle",catL:"Lifestyle",foll:56360,reach:"56K",engN:0.43,eng:"0.4%",score:74},
+    {nm:"abbey robins",hd:"@abbeyrobins",cat:"lifestyle",catL:"Lifestyle",foll:53900,reach:"54K",engN:0.0,eng:"0.0%",score:74},
+    {nm:"Shu Omi",hd:"@shuomi_official",cat:"tech",catL:"Tech",foll:83800,reach:"84K",engN:0.0,eng:"0.0%",score:74},
+    {nm:"am11_rah",hd:"@am11_rah",cat:"lifestyle",catL:"Lifestyle",foll:17220,reach:"17K",engN:1.36,eng:"1.4%",score:74},
+    {nm:"Poppy And Lola",hd:"@poppythepug2016",cat:"pets",catL:"Pets",foll:34970,reach:"35K",engN:0.0,eng:"0.0%",score:73},
+    {nm:"schoolofcode",hd:"@tecladocode",cat:"tech",catL:"Tech",foll:32400,reach:"32K",engN:0.0,eng:"0.0%",score:73},
+    {nm:"Sonny Sangha",hd:"@ssssangha",cat:"tech",catL:"Tech",foll:34850,reach:"35K",engN:0.29,eng:"0.3%",score:73},
+    {nm:"Bianca Miller-Cole",hd:"@biancamillerofficial",cat:"lifestyle",catL:"Lifestyle",foll:25580,reach:"26K",engN:0.17,eng:"0.2%",score:73},
+    {nm:"Hollie Glassett",hd:"@misshollieglassett",cat:"lifestyle",catL:"Lifestyle",foll:20000,reach:"20K",engN:0.61,eng:"0.6%",score:73},
+    {nm:"bobby_seagull",hd:"@Bobby_Seagull",cat:"health",catL:"Health",foll:33320,reach:"33K",engN:0.27,eng:"0.3%",score:73},
+    {nm:"biteyourbrum",hd:"@biteyourbrum",cat:"food",catL:"Food",foll:31450,reach:"31K",engN:0.35,eng:"0.3%",score:73},
+    {nm:"Sherry Scribbles",hd:"@sheradanhannahfaye",cat:"lifestyle",catL:"Lifestyle",foll:10460,reach:"10K",engN:1.74,eng:"1.7%",score:73},
+    {nm:"Laura J Hyatt",hd:"@laurajhyatt",cat:"lifestyle",catL:"Lifestyle",foll:17580,reach:"18K",engN:0.0,eng:"0.0%",score:72},
+    {nm:"Mahel Khan",hd:"@Mahelx",cat:"lifestyle",catL:"Lifestyle",foll:13710,reach:"14K",engN:0.0,eng:"0.0%",score:72},
+    {nm:"Code Cast",hd:"@bookercodes",cat:"tech",catL:"Tech",foll:21700,reach:"22K",engN:0.0,eng:"0.0%",score:72},
+    {nm:"TheMummyThatEats ToddlerBlog",hd:"@themummythateats",cat:"food",catL:"Food",foll:12050,reach:"12K",engN:0.3,eng:"0.3%",score:72},
+    {nm:"Charlotte Laserstorm Thomas",hd:"@itscharlottethomas",cat:"lifestyle",catL:"Lifestyle",foll:11530,reach:"12K",engN:0.44,eng:"0.4%",score:72},
+    {nm:"Emma Miles",hd:"@emmamakeupmiles",cat:"beauty",catL:"Beauty",foll:10240,reach:"10K",engN:0.47,eng:"0.5%",score:72},
+    {nm:"Kaitlyn Ridge",hd:"@kaitlynridge",cat:"lifestyle",catL:"Lifestyle",foll:16200,reach:"16K",engN:0.19,eng:"0.2%",score:72},
+    {nm:"nadine hanne",hd:"@nadine.hannelore",cat:"lifestyle",catL:"Lifestyle",foll:9440,reach:"9K",engN:0.73,eng:"0.7%",score:72},
+    {nm:"Metasploitation",hd:"@metasploitation7847",cat:"tech",catL:"Tech",foll:9400,reach:"9K",engN:0.0,eng:"0.0%",score:71},
+    {nm:"Kat",hd:"@the_ks_edit",cat:"lifestyle",catL:"Lifestyle",foll:8970,reach:"9K",engN:0.0,eng:"0.0%",score:71},
+    {nm:"Jill",hd:"@coderess",cat:"tech",catL:"Tech",foll:5030,reach:"5K",engN:0.0,eng:"0.0%",score:70},
+    {nm:"beautyonreview",hd:"@yasna_rahima",cat:"beauty",catL:"Beauty",foll:5860,reach:"6K",engN:0.0,eng:"0.0%",score:70}
   ];
+  var AVATARS={
+    "maison_de_sable":"https://social-pictures-storage.s3.amazonaws.com/thumb_ba1050175895947e621a6f3c50feb980_4872390.jpeg",
+    "charlottetaylr":"https://social-pictures-storage.s3.amazonaws.com/thumb_37d6bac01c447aeea4ccf889cdde7814_5711080.jpeg",
+    "alfiethepug_beat":"https://social-pictures-storage.s3.amazonaws.com/17ba61ff873e55d8e476f2fb6bb88423_1950061.png",
+    "lillythehimalayan":"https://social-pictures-storage.s3.amazonaws.com/thumb_64b53bb04d7cc17045a759eac621fe3d_1227771.jpeg",
+    "poppythepug2016":"https://social-pictures-storage.s3.amazonaws.com/thumb_62cfefc512931aa79acda8ec5dac3deb_9052672.jpeg",
+    "maddie_and_family":"https://s3-us-west-1.amazonaws.com/social-pictures-storage/LogoPublisher/3699358_Logo.jpg",
+    "emi_pug":"https://s3-us-west-1.amazonaws.com/social-pictures-storage/LogoPublisher/4523481_Logo.jpg",
+    "regaldoguk":"https://social-pictures-storage.s3.us-west-1.amazonaws.com/Logo/2137657735_Instagram_Logo.jpg",
+    "bengoldacre":"https://social-pictures-storage.s3.amazonaws.com/a26ea977f8ea02a0c3be82a50d27124a_1533910385.",
+    "metasploitation7847":"https://s3-us-west-1.amazonaws.com/social-pictures-storage/LogoPublisher/3264204_Logo.jpg",
+    "laurajhyatt":"https://s3-us-west-1.amazonaws.com/social-pictures-storage/LogoPublisher/425748_Logo.jpg",
+    "jakewrightnet":"https://social-pictures-storage.s3.amazonaws.com/thumb_9f3d65c927294a97f6a2407c578605da_1623244399.",
+    "zoneoftech":"https://s3-us-west-1.amazonaws.com/social-pictures-storage/LogoPublisher/13282_Logo.jpg",
+    "tecladocode":"https://s3-us-west-1.amazonaws.com/social-pictures-storage/LogoPublisher/3280452_Logo.jpg",
+    "coderess":"https://s3-us-west-1.amazonaws.com/social-pictures-storage/LogoPublisher/4279716_Logo.jpg",
+    "ssssangha":"https://static-resources.creatoriq.com/social-pictures/instagram/thumbnail/ssssangha.jpg",
+    "sim.crowther":"https://social-pictures-storage.s3.us-west-1.amazonaws.com/Logo/2139066680_Instagram_Logo.jpg",
+    "tech.bible":"https://social-pictures-storage.s3.amazonaws.com/82d10a0715de16ed4729daf42ea14c3c_3605022.jpeg",
+    "adamalorna":"https://social-pictures-storage.s3.amazonaws.com/7d679789e2f630a06a2782bd52311f31_1834092.jpeg",
+    "herhelloworld":"https://social-pictures-storage.s3.us-west-1.amazonaws.com/Logo/herhelloworld_instagram_Logo.jpg",
+    "petiadavidova":"https://social-pictures-storage.s3.amazonaws.com/e1bdc6285cdd07f37dff4ee4d9beb995_5244225.jpeg",
+    "amigoscode":"https://social-pictures-storage.s3.amazonaws.com/2fe9dbb689e350c48b8219ae740d8214_3650038.jpeg",
+    "mahelx":"https://social-pictures-storage.s3.us-west-1.amazonaws.com/Logo/501668839_Instagram_Logo.jpg",
+    "bookercodes":"https://s3-us-west-1.amazonaws.com/social-pictures-storage/LogoPublisher/3258400_Logo.jpg",
+    "developerfilip":"https://social-pictures-storage.s3.amazonaws.com/9acce639dc9ba45e33fad6b5b50f9c04_3779357.jpeg",
+    "alexliu1":"https://social-pictures-storage.s3.amazonaws.com/6dfdbe65f703de54fa0914338fbe43b9_5732426.jpeg",
+    "sophiebertrand_":"https://social-pictures-storage.s3.us-west-1.amazonaws.com/Logo/sophieshealthykitchen_instagram_Logo.jpg",
+    "georginaburgess_":"https://social-pictures-storage.s3.amazonaws.com/medium_937e806e7ec8e42cbf9353564a82fb0c_6781771.jpeg",
+    "isawellypilates":"https://social-pictures-storage.s3.amazonaws.com/medium_a3991720535c52b2c857ee0a4575e996_7854370.jpeg",
+    "david.birtwistle":"https://static-resources.creatoriq.com/social-pictures/instagram/thumbnail/david.birtwistle.jpg",
+    "tallyrye":"https://s3-us-west-1.amazonaws.com/social-pictures-storage/LogoPublisher/1841027_Logo.jpg",
+    "drhazelwallace":"https://social-pictures-storage.s3.amazonaws.com/thumb_b3baa5024911a42ce9416b855c0baeee_1622113691.jpg",
+    "pokubanks":"https://social-pictures-storage.s3.amazonaws.com/medium_193477d8335501ee6f8d6f84d4107f31_1705558.jpeg",
+    "paulbiack":"https://social-pictures-storage.s3.amazonaws.com/thumb_a0429158bb9ff26a8728792aa28fb4aa_1623720918.jpg",
+    "nads_bacchus":"https://social-pictures-storage.s3.amazonaws.com/medium_020b26f275e4c296e658673e416937a6_6642101.jpeg",
+    "laurabyrneshome":"https://social-pictures-storage.s3.amazonaws.com/medium_3e207fd981643250f9a3f3447e38c49e_9522425.jpeg",
+    "sophjbutler":"https://social-pictures-storage.s3.us-west-1.amazonaws.com/Logo/2142100612_Instagram_Logo.jpg",
+    "lottiemurphy":"https://social-pictures-storage.s3.amazonaws.com/thumb_b0b65a993baab1b57b314595bc04885d_1622728433.",
+    "esmee_ldn":"https://social-pictures-storage.s3.amazonaws.com/thumb_ecef920ecbd7f61474b947fe904e53de_9811777.jpeg",
+    "stephelswood":"https://social-pictures-storage.s3.amazonaws.com/medium_71506869469d0534fe53e6394c129bf0_6434972.jpeg",
+    "sambentley":"https://social-pictures-storage.s3.us-west-1.amazonaws.com/Logo/sambentley_instagram_Logo.jpg",
+    "monkidj":"https://s3-us-west-1.amazonaws.com/social-pictures-storage/LogoPublisher/3734552_Logo.jpg",
+    "leahwilliamsonn":"https://social-pictures-storage.s3.amazonaws.com/4709ee367b40b9b5a2f88a3beb542492_1538650162.jpg",
+    "chefthombateman":"https://social-pictures-storage.s3.amazonaws.com/medium_3c1df31de55e8cbf948f3b36234a3ba6_8467717.jpeg",
+    "biancamillerofficial":"https://s3-us-west-1.amazonaws.com/social-pictures-storage/LogoPublisher/4074606_Logo.jpg",
+    "hannahdaviesgolf":"https://social-pictures-storage.s3.amazonaws.com/medium_680a95f21b997db87103c8c684276def_5140820.jpeg",
+    "theaveragegolfer":"https://s3-us-west-1.amazonaws.com/social-pictures-storage/LogoPublisher/3292320_Logo.jpg",
+    "sophiarcook":"https://social-pictures-storage.s3.amazonaws.com/medium_1d2e3dac1787f13eee7f7bd1fc22db00_5926033.jpeg",
+    "dejashu":"https://social-pictures-storage.s3.amazonaws.com/medium_6c278868a18955b108b38cbc75beafca_8037643.jpeg",
+    "isobelperlskin":"https://social-pictures-storage.s3.amazonaws.com/medium_1f59789d7b6f2367901a1482a970520d_7261995.jpeg",
+    "clomana":"https://social-pictures-storage.s3.amazonaws.com/1c723bc21b9486bbaf378725bed6b6d3_9079903.jpeg",
+    "browniegod":"https://static-resources.creatoriq.com/social-pictures/instagram/thumbnail/browniegod.jpg",
+    "totesforyouu":"https://social-pictures-storage.s3.amazonaws.com/medium_84062a669751ede913fe732ce95ae878_6349227.jpeg",
+    "harperadamsuni":"https://social-pictures-storage.s3.us-west-1.amazonaws.com/Logo/2140580283_Instagram_Logo.jpg",
+    "therunnerbeans":"https://s3-us-west-1.amazonaws.com/social-pictures-storage/LogoPublisher/3880688_Logo.jpg",
+    "d5construction":"https://social-pictures-storage.s3.amazonaws.com/medium_028ed70fd86e7016f8d7a109d98ae702_6427922.jpeg",
+    "maverickbaking":"https://social-pictures-storage.s3.us-west-1.amazonaws.com/Logo/640209233_instagram_Logo.jpg",
+    "maristracke":"https://s3-us-west-1.amazonaws.com/social-pictures-storage/LogoPublisher/4662002_Logo.jpg",
+    "misshollieglassett":"https://s3-us-west-1.amazonaws.com/social-pictures-storage/LogoPublisher/3838920_Logo.jpg_",
+    "girltalkwithlaura":"https://s3-us-west-1.amazonaws.com/social-pictures-storage/LogoPublisher/3546461_Logo.jpg",
+    "faithmartinxo":"https://static-resources.creatoriq.com/social-pictures/instagram/thumbnail/faithmartinxo.jpg",
+    "athomewithtash_xo":"https://social-pictures-storage.s3.us-west-1.amazonaws.com/Logo/2138293929_Instagram_Logo.jpg",
+    "ellanicolawills":"https://social-pictures-storage.s3.us-west-1.amazonaws.com/Logo/568737245_instagram_Logo.jpg",
+    "tashakiranx":"https://social-pictures-storage.s3.us-west-1.amazonaws.com/Logo/2145684060_Instagram_Logo.jpg",
+    "sophievj":"https://social-pictures-storage.s3.us-west-1.amazonaws.com/Logo/sophievj_instagram_Logo.jpg",
+    "aimeekayofficial":"https://social-pictures-storage.s3.amazonaws.com/d09520e3ca06fc985212817565479797_1648021.jpeg",
+    "themummythateats":"https://static-resources.creatoriq.com/social-pictures/instagram/thumbnail/themummythateats.jpg",
+    "thelondonlady__":"https://static-resources.creatoriq.com/social-pictures/instagram/thumbnail/thelondonlady__.jpg",
+    "itscharlottethomas":"https://static-resources.creatoriq.com/social-pictures/instagram/thumbnail/laserstormrawr.jpg",
+    "big_fat_greekmother":"https://social-pictures-storage.s3.us-west-1.amazonaws.com/Logo/big_fat_greekmother_instagram_Logo.jpg",
+    "shesnotfunny":"https://social-pictures-storage.s3.amazonaws.com/0bceae8e8fdf86f58cf8114f82008267_1542277907.jpg",
+    "thisgirlcanorganise":"https://social-pictures-storage.s3.amazonaws.com/7f7a0b57bfb0c44b58bfc26543107f0e_3405437.jpeg",
+    "thejess.jones":"https://s3-us-west-1.amazonaws.com/social-pictures-storage/LogoPublisher/3919070_Logo.jpg",
+    "chantellechamps":"https://social-pictures-storage.s3.us-west-1.amazonaws.com/Logo/chantellechamps_instagram_Logo.jpg",
+    "curlylittledreams":"https://social-pictures-storage.s3.us-west-1.amazonaws.com/Logo/2141505576_Instagram_Logo.jpg",
+    "joshuapatterson_jp":"https://social-pictures-storage.s3.amazonaws.com/thumb_37c03c9866610862ae131f15ebe35ac4_1622539180.",
+    "gracebeverley":"https://s3-us-west-1.amazonaws.com/social-pictures-storage/Logo/551789587_youtube_Logo.jpg",
+    "drfayebate":"https://s3-us-west-1.amazonaws.com/social-pictures-storage/LogoPublisher/2701174_Logo.jpg",
+    "gstaadguy":"https://static-resources.creatoriq.com/social-pictures/instagram/thumbnail/gstaadguy.jpg",
+    "mikedeeofficial":"https://social-pictures-storage.s3.amazonaws.com/thumb_ef9f7108f5110c3162440b44cbd6ac96_1622038031.jpg",
+    "psychologee":"https://static-resources.creatoriq.com/social-pictures/Tiktok/account/6879005522068194305.jpg",
+    "bryony_blake":"https://social-pictures-storage.s3.amazonaws.com/thumb_c6ab758dfca0e5bf501f57f5ce85e112_1625047980.jpg",
+    "emmaguns":"https://social-pictures-storage.s3.us-west-1.amazonaws.com/Logo/emmaguns_instagram_Logo.jpg",
+    "itssophiemilner":"https://static-resources.creatoriq.com/social-pictures/Tiktok/account/6929507050830316549.jpg",
+    "nancy.xoxx":"https://static-resources.creatoriq.com/social-pictures/Tiktok/account/28887296.jpg",
+    "ellenextdoor":"https://social-pictures-storage.s3.amazonaws.com/thumb_84db8a526b0b633ccf3372c897aca08d_1624462925.jpg",
+    "the_ks_edit":"https://static-resources.creatoriq.com/social-pictures/instagram/thumbnail/the_ks_edit.jpg",
+    "georgia.barratt":"https://static-resources.creatoriq.com/social-pictures/Tiktok/account/6756118596236461061.jpg",
+    "aleemaxali":"https://static-resources.creatoriq.com/social-pictures/Tiktok/account/6808600159402001413.jpg",
+    "ilyaselyn":"https://static-resources.creatoriq.com/social-pictures/Tiktok/account/6767037929576793093.jpg",
+    "sparklesandskin":"https://static-resources.creatoriq.com/social-pictures/instagram/thumbnail/sparklesandskin.jpg",
+    "annawilliamsonofficial":"https://social-pictures-storage.s3.amazonaws.com/70c126bee9a0596c8162e6924e5487c8_1540562073.jpg",
+    "dr_rajarora":"https://static-resources.creatoriq.com/social-pictures/instagram/thumbnail/dr_rajarora.jpg",
+    "poppydeyes":"https://social-pictures-storage.s3.amazonaws.com/rDfhPaeH_400x400_1527850242.jpg",
+    "deborahmeaden":"https://social-pictures-storage.s3.amazonaws.com/thumb_e52e2773db7ac355d06f88c89d5565e9_1622199102.jpg",
+    "lydiavioleta_":"https://social-pictures-storage.s3.amazonaws.com/thumb_65991102d52bd4b83950ba03877bf3fd_1623327042.jpg",
+    "kharmamedic":"https://static-resources.creatoriq.com/social-pictures/youtube/channel/UCeoU2maQX8JiQ9DTuhOVz5g.jpg",
+    "jess.olo":"https://social-pictures-storage.s3.us-west-1.amazonaws.com/Logo/2144002835_Instagram_Logo.jpg",
+    "galswho":"https://static-resources.creatoriq.com/social-pictures/instagram/thumbnail/galswho.jpg",
+    "aliabdaal":"https://social-pictures-storage.s3.us-west-1.amazonaws.com/Logo/aliabdaal_instagram_Logo.jpg",
+    "abbeyrobins":"https://static-resources.creatoriq.com/social-pictures/Tiktok/account/6775159622271845382.jpg",
+    "bobby_seagull":"https://static-resources.creatoriq.com/social-pictures/twitter/account/709160024476672001.jpg",
+    "elliesleightholm":"https://static-resources.creatoriq.com/social-pictures/youtube/channel/UCylqgu2ojsCxojFpQogowOA.jpg",
+    "draminayonis":"https://social-pictures-storage.s3.us-west-1.amazonaws.com/Logo/644032130_instagram_Logo.jpg",
+    "doctorsalimahmed":"https://static-resources.creatoriq.com/social-pictures/youtube/channel/UCvie4ROz0dS7_pnwQHRZzrw.jpg",
+    "shuomi_official":"https://static-resources.creatoriq.com/social-pictures/youtube/channel/UC525q2RIufHjnaHOuIUFY9A.jpg",
+    "lucywangyuxin":"https://static-resources.creatoriq.com/social-pictures/Tiktok/account/6907919084550423557.jpg",
+    "unjadedjade":"https://social-pictures-storage.s3.us-west-1.amazonaws.com/Logo/630030685_instagram_Logo.jpg",
+    "naynaflorence":"https://social-pictures-storage.s3.amazonaws.com/96b7bd34401f52dfb3ab0a0e29c3d3eb_2122967.jpeg",
+    "paigey":"https://social-pictures-storage.s3.us-west-1.amazonaws.com/Logo/633042752_Instagram_Logo.jpg",
+    "calumharris":"https://social-pictures-storage.s3.amazonaws.com/medium_93c7f5c5cc676f824b5887449742a6e4_1540638.jpeg",
+    "emmamakeupmiles":"https://static-resources.creatoriq.com/social-pictures/instagram/thumbnail/emmamakeupmiles.jpg",
+    "elkismakeup":"https://social-pictures-storage.s3.us-west-1.amazonaws.com/Logo/2141363311_Instagram_Logo.jpg",
+    "gkbarry":"https://static-resources.creatoriq.com/social-pictures/Tiktok/account/6741328354467283973.jpg",
+    "italianbach":"https://static-resources.creatoriq.com/social-pictures/Tiktok/account/6805521111364469765.jpg",
+    "arthur_tv":"https://social-pictures-storage.s3.us-west-1.amazonaws.com/Logo/636805020_Instagram_Logo.jpg",
+    "ash_holme":"https://static-resources.creatoriq.com/social-pictures/Tiktok/account/6753561209918112773.jpg",
+    "jackremmington":"https://static-resources.creatoriq.com/social-pictures/Tiktok/account/6777796465555031045.jpg",
+    "georgeclarkeey":"https://static-resources.creatoriq.com/social-pictures/Tiktok/account/6760073307443266566.jpg",
+    "max_balegde":"https://static-resources.creatoriq.com/social-pictures/Tiktok/account/6608127068637593605.jpg",
+    "itsmariammusa":"https://social-pictures-storage.s3.amazonaws.com/f83464e87b55ae3c6b0d27e7cc8ff512_2314672.jpeg",
+    "adeolapatronne":"https://s3-us-west-1.amazonaws.com/social-pictures-storage/Logo/3225570_youtube_Logo.jpg",
+    "cazzatime":"https://static-resources.creatoriq.com/social-pictures/Tiktok/account/234139372047028224.jpg",
+    "meganshort":"https://social-pictures-storage.s3.us-west-1.amazonaws.com/Logo/2144188487_Instagram_Logo.jpg",
+    "emilyannwillcox":"https://static-resources.creatoriq.com/social-pictures/instagram/thumbnail/emilyannwillcox.jpg",
+    "emilycampbell":"https://social-pictures-storage.s3.us-west-1.amazonaws.com/Logo/2145715578_Instagram_Logo.jpg",
+    "duhitzshirley":"https://static-resources.creatoriq.com/social-pictures/Tiktok/account/6830765515402036229.jpg",
+    "jessandnorma":"https://static-resources.creatoriq.com/social-pictures/Tiktok/account/6807103045786059781.jpg",
+    "puwtok":"https://static-resources.creatoriq.com/social-pictures/Tiktok/account/158029722512302082.jpg",
+    "anastasiakingsnorth":"https://social-pictures-storage.s3.amazonaws.com/thumb_48b440c0e5b4c55130d0ff5b11ac4f2e_1625832959.jpg",
+    "juliestanton__":"https://social-pictures-storage.s3.amazonaws.com/medium_579872254dc9285375d840f0c73c09bc_1456963.jpeg",
+    "jennyandlee_gogglebox":"https://s3-us-west-1.amazonaws.com/social-pictures-storage/Logo/551100788_Twitter_Logo.jpg",
+    "beauthebeard":"https://social-pictures-storage.s3.amazonaws.com/thumb_8cd71e95c514e8afddcec717e2738e77_4948604.jpeg",
+    "grimegran":"https://static-resources.creatoriq.com/social-pictures/instagram/thumbnail/grimegran.jpg",
+    "grandadfrankk":"https://static-resources.creatoriq.com/social-pictures/Tiktok/account/6756711326355080198.jpg",
+    "lewisleighh":"https://static-resources.creatoriq.com/social-pictures/Tiktok/account/147509480702902272.jpg",
+    "ieuanjoness":"https://static-resources.creatoriq.com/social-pictures/Tiktok/account/6751115333266637829.jpg",
+    "rachelspicer_":"https://static-resources.creatoriq.com/social-pictures/Tiktok/account/6792129035092116486.jpg",
+    "ellaandbenn":"https://static-resources.creatoriq.com/social-pictures/Tiktok/account/6939539608548180997.jpg",
+    "charleymarlowe":"https://static-resources.creatoriq.com/social-pictures/Tiktok/account/6750732032622724102.jpg",
+    "charlyannec":"https://static-resources.creatoriq.com/social-pictures/Tiktok/account/6642016516470833157.jpg",
+    "grandadjoe1933":"https://static-resources.creatoriq.com/social-pictures/Tiktok/account/6782266438800540677.jpg",
+    "samthompsonuk":"https://social-pictures-storage.s3.us-west-1.amazonaws.com/Logo/samthompsonuk_instagram_Logo.jpg",
+    "p_wicks01":"https://s3-us-west-1.amazonaws.com/social-pictures-storage/LogoPublisher/293418_Logo.jpg",
+    "missmcollins":"https://social-pictures-storage.s3.amazonaws.com/thumb_79c7d41c8eee6e88c7ee54e158021f9c_1623254560.jpg",
+    "kaitlynridge":"https://s3-us-west-1.amazonaws.com/social-pictures-storage/LogoPublisher/4582507_Logo.jpg_",
+    "healthwithnyrah":"https://static-resources.creatoriq.com/social-pictures/Tiktok/account/6869076158479680518.jpg",
+    "abrahamthepharmacist":"https://social-pictures-storage.s3.amazonaws.com/e58fc911bdbdeb0d2f155e0de89e3729_8159587.jpeg",
+    "aminathepharmacist":"https://static-resources.creatoriq.com/social-pictures/Tiktok/account/6770283842013365254.jpg",
+    "bhamupdates":"https://static-resources.creatoriq.com/social-pictures/instagram/thumbnail/bhamupdates.jpg",
+    "biteyourbrum":"https://static-resources.creatoriq.com/social-pictures/instagram/thumbnail/biteyourbrum.jpg",
+    "nadine.hannelore":"https://social-pictures-storage.s3.us-west-1.amazonaws.com/Logo/2144422650_Instagram_Logo.jpg",
+    "am11_rah":"https://static-resources.creatoriq.com/social-pictures/instagram/thumbnail/am11_rah.jpg",
+    "sheradanhannahfaye":"https://s3-us-west-1.amazonaws.com/social-pictures-storage/LogoPublisher/3847684_Logo.jpg_",
+    "doctors_kitchen":"https://s3-us-west-1.amazonaws.com/social-pictures-storage/LogoPublisher/3471525_Logo.jpg",
+    "thediaryofaceo":"https://social-pictures-storage.s3.amazonaws.com/medium_ce3fc910433df46631d0a8e6fa61eb7d_4735699.jpeg",
+    "abisguideto":"https://static-resources.creatoriq.com/social-pictures/instagram/thumbnail/abisguideto.jpg",
+    "ameliaxsalmon":"https://static-resources.creatoriq.com/social-pictures/Tiktok/account/6940179743149949958.jpg",
+    "imanievans_":"https://s3-us-west-1.amazonaws.com/social-pictures-storage/LogoPublisher/3584191_Logo.jpg",
+    "yasna_rahima":"https://static-resources.creatoriq.com/social-pictures/instagram/thumbnail/_beautyonreview.jpg"
+  };
   var board=document.getElementById('board');
-  function render(cat){
-    var list=TALENT.filter(function(t){return cat==='all'||t.cat===cat;});
-    board.querySelectorAll('.row').forEach(function(r){r.remove();});
+  var bstate={cat:'all',q:'',sort:'score',dir:-1};   // dir: 1 asc, -1 desc
+  var TEXT_SORT={nm:1,catL:1};
+  function boardList(){
+    var q=bstate.q.trim().toLowerCase();
+    var list=TALENT.filter(function(t){
+      if(bstate.cat!=='all'&&t.cat!==bstate.cat)return false;
+      if(q&&(t.nm.toLowerCase().indexOf(q)<0&&t.hd.toLowerCase().indexOf(q)<0&&t.catL.toLowerCase().indexOf(q)<0))return false;
+      return true;
+    });
+    var k=bstate.sort,dir=bstate.dir;
+    list.sort(function(a,b){
+      var av=a[k],bv=b[k];
+      if(typeof av==='string'){av=av.toLowerCase();bv=bv.toLowerCase();return av<bv?-dir:av>bv?dir:0;}
+      return (av-bv)*dir;
+    });
+    return list;
+  }
+  function render(){
+    var list=boardList();
+    board.querySelectorAll('.row,.board-empty').forEach(function(r){r.remove();});
+    var cnt=document.getElementById('boardCount');
+    if(cnt)cnt.textContent=list.length+(list.length===1?' creator':' creators');
+    if(!list.length){var e=document.createElement('div');e.className='board-empty';e.textContent='No creators match that filter.';board.appendChild(e);return;}
     list.forEach(function(t,i){
       var row=document.createElement('div');
       row.className='row';
-      var ver=t.ver?'<span class="ver" title="Verified creator"><svg viewBox="0 0 24 24" fill="none" stroke="#1a0c08" stroke-width="3.5"><path d="M5 12l4 4 10-10"/></svg></span>':'';
+      var av=AVATARS[t.hd.replace(/^@/,'').toLowerCase()];
+      var avhtml=av?'<img loading="lazy" src="'+av+'" alt="" referrerpolicy="no-referrer" onerror="this.remove()">':'';
       row.innerHTML='<span class="rk">'+(i+1)+'</span>'+
-        '<span class="who"><span class="av"></span><span><span class="nm">'+t.nm+ver+'</span><span class="hd">'+t.hd+'</span></span></span>'+
+        '<span class="who"><span class="av">'+avhtml+'</span><span><span class="nm">'+t.nm+'</span><span class="hd">'+t.hd+'</span></span></span>'+
         '<span class="cat">'+t.catL+'</span>'+
         '<span class="num">'+t.reach+'</span>'+
         '<span class="num">'+t.eng+'</span>'+
@@ -584,24 +953,41 @@
       board.appendChild(row);
     });
   }
-  render('all');
+  function updateHeaders(){
+    document.querySelectorAll('.sortbtn').forEach(function(b){
+      var on=b.dataset.sort===bstate.sort;
+      b.classList.toggle('active',on);
+      var ar=b.querySelector('.ar');if(ar)ar.remove();
+      if(on){var s=document.createElement('span');s.className='ar';s.textContent=bstate.dir===1?'▲':'▼';b.appendChild(s);}
+    });
+  }
+  document.querySelectorAll('.sortbtn').forEach(function(b){
+    b.addEventListener('click',function(){
+      var k=b.dataset.sort;
+      if(bstate.sort===k){bstate.dir*=-1;}else{bstate.sort=k;bstate.dir=TEXT_SORT[k]?1:-1;}
+      updateHeaders();render();
+    });
+  });
   document.querySelectorAll('.chip').forEach(function(c){
     c.addEventListener('click',function(){
       document.querySelectorAll('.chip').forEach(function(x){x.classList.remove('active');});
-      c.classList.add('active');
-      render(c.dataset.cat);
+      c.classList.add('active');bstate.cat=c.dataset.cat;render();
     });
   });
-  // live board from Supabase (falls back to the sample above if not configured)
+  var bsi=document.getElementById('boardSearch');
+  if(bsi)bsi.addEventListener('input',function(){bstate.q=bsi.value;render();});
+  updateHeaders();render();
+  // live board from Supabase (overrides the data above if configured)
   if(window.supaReady&&window.supaReady()){
     window.supaBoard().then(function(r){
       if(r&&!r.error&&r.data&&r.data.length){
         TALENT=r.data.map(function(d){
-          var rk=(typeof d.reach==='number'&&d.reach>=1000)?Math.round(d.reach/1000)+'K':(d.reach||'—');
-          return {nm:d.name,hd:d.handle,cat:(d.category||'').toLowerCase().split(/[ &]/)[0],catL:d.category||'',reach:rk,eng:(d.engagement!=null?d.engagement+'%':'—'),score:d.passion_score,ver:!!d.verified};
+          var foll=(typeof d.reach==='number')?d.reach:0;
+          var rk=(foll>=1e6)?(foll/1e6).toFixed(2).replace(/\.?0+$/,'')+'M':(foll>=1000?Math.round(foll/1000)+'K':(d.reach||'—'));
+          var en=(d.engagement!=null)?d.engagement:0;
+          return {nm:d.name,hd:d.handle,cat:(d.category||'').toLowerCase().split(/[ &]/)[0],catL:d.category||'',foll:foll,reach:rk,engN:en,eng:(d.engagement!=null?d.engagement+'%':'—'),score:d.passion_score};
         });
-        var active=document.querySelector('.chip.active');
-        render(active?active.dataset.cat:'all');
+        render();
       }
     }).catch(function(){});
   }
