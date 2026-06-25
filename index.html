@@ -50,7 +50,7 @@
   :root{
     --ink:#15100E;--ink-2:#1D1613;--ink-3:#261D18;
     --bone:#F0E7D9;--bone-dim:#B3A593;
-    --scarlet:#FF3A20;--scarlet-deep:#C92410;--oxblood:#6E241B;--paper:#EBE2D3;
+    --scarlet:#FF3A20;--scarlet-deep:#C92410;--oxblood:#6E241B;--ember:#7B1E14;--paper:#EBE2D3;
     --gold:#E8B04B;
     --display:'Figtree',system-ui,sans-serif;
     --body:'Hanken Grotesk',system-ui,sans-serif;
@@ -280,11 +280,11 @@
   .payoff .btn-dark:hover{background:#2a1f1a}
 
   /* manifesto */
-  .manifesto{background:var(--scarlet);color:#1a0c08}
-  .manifesto .eyebrow{color:#1a0c08}.manifesto .eyebrow::before{background:#1a0c08}
-  .manifesto h2{font-size:clamp(44px,9vw,116px);margin:18px 0 0;color:#1a0c08}
-  .manifesto .body{max-width:620px;margin:32px 0 0;font-size:clamp(18px,2.4vw,23px);line-height:1.5;color:#2a120c;font-weight:500}
-  .manifesto .sign{font-family:var(--mono);font-size:13px;letter-spacing:.06em;margin-top:28px;color:#1a0c08}
+  .manifesto{background:var(--ember);color:var(--bone)}
+  .manifesto .eyebrow{color:var(--gold);background:none;-webkit-text-fill-color:var(--gold)}.manifesto .eyebrow::before{background:var(--gold)}
+  .manifesto h2{font-size:clamp(44px,9vw,116px);margin:18px 0 0;color:var(--bone)}
+  .manifesto .body{max-width:620px;margin:32px 0 0;font-size:clamp(18px,2.4vw,23px);line-height:1.5;color:rgba(240,231,217,.88);font-weight:500}
+  .manifesto .sign{font-family:var(--mono);font-size:13px;letter-spacing:.06em;margin-top:28px;color:var(--bone-dim)}
 
   /* about */
   .about-grid{display:grid;grid-template-columns:1.2fr .8fr;gap:48px;align-items:start}
@@ -414,23 +414,6 @@
     
   </section>
 
-  <!-- HOW IT WORKS (creators) -->
-  <section id="how">
-    <div class="wrap">
-      <div class="sec-head reveal">
-        <div class="eyebrow aud-creator">For creators · how it works</div>
-        <h2 class="display-l">Your passion, ranked.</h2>
-        <p>The whole thing starts with you, not a brand brief. You build the profile, you choose the brands, and the order is what makes every partnership real.</p>
-      </div>
-      <div class="steps reveal">
-        <div class="step"><div class="no">01</div><h3>Apply &amp; build your profile</h3><p>Your work, your audience, your story. A few minutes to set up. Every application is reviewed personally.</p></div>
-        <div class="step"><div class="no">02</div><h3>Choose your top six</h3><p>Name the six brands you'd represent for free. This is the heart of it. Conviction, not a rate card.</p></div>
-        <div class="step"><div class="no">03</div><h3>Climb the ranking</h3><p>A complete, active profile with real affinity earns a Passion Score and a place on the board.</p></div>
-        <div class="step"><div class="no">04</div><h3>We win your brands</h3><p>We take your six to those brands with a finished solution. The love was real before any deal.</p></div>
-      </div>
-    </div>
-  </section>
-
   <!-- TOP SIX (creators) -->
   <section class="topsix" id="topsix">
     <div class="wrap reveal">
@@ -444,6 +427,23 @@
         <div class="slot filled"><span class="rank">04</span><img class="logo-img" src="https://icon.horse/icon/marksandspencer.com" alt="Marks &amp; Spencer" onerror="this.onerror=null;this.src='https://www.google.com/s2/favicons?domain=marksandspencer.com&sz=128'"><span class="st">In talks</span></div>
         <div class="slot filled"><span class="rank">05</span><img class="logo-img" src="https://icon.horse/icon/sharkclean.co.uk" alt="Shark" onerror="this.onerror=null;this.src='https://www.google.com/s2/favicons?domain=sharkclean.co.uk&sz=128'"><span class="st">● Won</span></div>
         <div class="slot filled"><span class="rank">06</span><img class="logo-img" src="https://icon.horse/icon/morleyschicken.com" alt="Morley's" onerror="this.onerror=null;this.src='https://www.google.com/s2/favicons?domain=morleyschicken.com&sz=128'"><span class="st">In talks</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS (creators) -->
+  <section id="how">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <div class="eyebrow aud-creator">For creators · how it works</div>
+        <h2 class="display-l">Your passion, ranked.</h2>
+        <p>The whole thing starts with you, not a brand brief. You build the profile, you choose the brands, and the order is what makes every partnership real.</p>
+      </div>
+      <div class="steps reveal">
+        <div class="step"><div class="no">01</div><h3>Apply &amp; build your profile</h3><p>Your work, your audience, your story. A few minutes to set up. Every application is reviewed personally.</p></div>
+        <div class="step"><div class="no">02</div><h3>Choose your top six</h3><p>Name the six brands you'd represent for free. This is the heart of it. Conviction, not a rate card.</p></div>
+        <div class="step"><div class="no">03</div><h3>Climb the ranking</h3><p>A complete, active profile with real affinity earns a Passion Score and a place on the board.</p></div>
+        <div class="step"><div class="no">04</div><h3>We win your brands</h3><p>We take your six to those brands with a finished solution. The love was real before any deal.</p></div>
       </div>
     </div>
   </section>
