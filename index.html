@@ -77,6 +77,20 @@
   .eyebrow.aud-brand::before{background:var(--gold)}
   .eyebrow.aud-both{background:linear-gradient(90deg,var(--scarlet) 30%,var(--gold));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent}
   .eyebrow.aud-both::before{background:linear-gradient(90deg,var(--scarlet),var(--gold))}
+  /* gift / appended P.S. section — distinct teal accent, still on-brand */
+  :root{--gift:#46C4A0;--gift-deep:#0C1E1A}
+  #ranking.gift{background:var(--gift-deep);border-top:1px solid rgba(70,196,160,.32)}
+  .ps-tag{display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--gift-deep);background:var(--gift);padding:6px 13px;border-radius:100px;margin-bottom:18px}
+  #ranking.gift .eyebrow{color:var(--gift);background:none;-webkit-text-fill-color:initial}
+  #ranking.gift .eyebrow::before{background:var(--gift)}
+  #ranking.gift .chip.active{background:var(--gift);border-color:var(--gift);color:var(--gift-deep)}
+  #ranking.gift .board-search:focus{border-color:var(--gift)}
+  #ranking.gift #boardCount{color:var(--gift)}
+  #ranking.gift .sortbtn.active{color:var(--gift)}
+  #ranking.gift .score{color:var(--gift)}
+  #ranking.gift .board .row:nth-child(2) .rk{color:var(--gift)}
+  #ranking.gift .formula .f b{color:var(--gift)}
+  #ranking.gift .btn{background:var(--gift);color:var(--gift-deep)}
   h1,h2,h3{font-family:var(--display);font-weight:800;line-height:.98;margin:0;letter-spacing:-.02em}
   .display-xl{font-size:clamp(48px,10vw,138px)}
   .display-l{font-size:clamp(38px,7vw,84px)}
@@ -346,7 +360,6 @@
 
 <main id="top">
 
-  <!-- HERO (creator-led) -->
   <section class="hero">
     <div class="wrap">
       <div class="eyebrow aud-both">A creator-led agency · membership by application</div>
@@ -367,19 +380,41 @@
     </div>
   </div>
 
-  <!-- EXCLUSIVITY BAND -->
-  <section class="excl">
-    <div class="wrap row reveal">
-      <div class="lead2">Not everyone gets on. <em>That's the point.</em></div>
-      <div class="notes">
-        <div>We <b>cap memberships every month</b> so the creators we represent genuinely match our values. Quality of fit over quantity, always.</div>
-        <div>Interest has been overwhelming. If you're <b>waiting on a response</b>, thank you for your patience — we review every application personally.</div>
-        <div>Want to skip the queue? We <b>prioritise creators with a referral</b> from someone already on the roster.</div>
+  <!-- BRAND PAYOFF (front-loaded: brands are the paying audience) -->
+  <section class="payoff" id="brands">
+    <div class="wrap reveal">
+      <div class="eyebrow aud-brand">For brands</div>
+      <h2>You don't search our talent.<br>You're told who chose you.</h2>
+      <p class="lead">No browsing a roster, no cold list of names for hire. We come to you with the creators who already named your brand in their top six. <b>The affinity exists before the conversation does.</b> That's the only endorsement worth buying.</p>
+      <div class="cards">
+        <div class="card"><div class="n">01</div><h3>Pre-qualified passion</h3><p>Every creator we bring you put your brand on their own list, before any fee was on the table.</p></div>
+        <div class="card"><div class="n">02</div><h3>A finished solution</h3><p>Built by a team that came from production, not a spreadsheet of handles. Ready to run.</p></div>
+        <div class="card"><div class="n">03</div><h3>Micro to household</h3><p>Belief scales where budget doesn't. We match you on conviction, at every tier.</p></div>
+      </div>
+      <div class="row">
+        <a class="btn btn-dark" href="#contact">Work with us</a>
       </div>
     </div>
   </section>
 
-  <!-- HOW IT WORKS (creator side leads) -->
+  <!-- PROOF: why brands should care -->
+  <section class="proof">
+    <div class="wrap proof-grid reveal">
+      <div>
+        <div class="eyebrow aud-both">Why it works</div>
+        <div class="claim" style="margin-top:18px">Real affinity <em>outperforms</em> paid-for love.</div>
+        <p class="sub">Audiences can feel the difference. Endorsements that start with genuine passion earn the engagement that manufactured ones never will.</p>
+      </div>
+      <div class="vs">
+        <div class="col dim"><div class="k">Typical influencer post</div><div class="v">~1.9%</div></div>
+        <div class="arrow">→</div>
+        <div class="col hot"><div class="k">twentytwo creators</div><div class="v">7%+</div></div>
+      </div>
+    </div>
+    
+  </section>
+
+  <!-- HOW IT WORKS (creators) -->
   <section id="how">
     <div class="wrap">
       <div class="sec-head reveal">
@@ -396,7 +431,7 @@
     </div>
   </section>
 
-  <!-- TOP SIX centerpiece -->
+  <!-- TOP SIX (creators) -->
   <section class="topsix" id="topsix">
     <div class="wrap reveal">
       <div class="eyebrow aud-creator">For creators · the heart of it</div>
@@ -413,11 +448,91 @@
     </div>
   </section>
 
-  <!-- RANKING BOARD -->
-  <section id="ranking">
+  <!-- EXCLUSIVITY (creator membership) -->
+  <section class="excl">
+    <div class="wrap row reveal">
+      <div class="lead2">Not everyone gets on. <em>That's the point.</em></div>
+      <div class="notes">
+        <div>We <b>cap memberships every month</b> so the creators we represent genuinely match our values. Quality of fit over quantity, always.</div>
+        <div>Interest has been overwhelming. If you're <b>waiting on a response</b>, thank you for your patience — we review every application personally.</div>
+        <div>Want to skip the queue? We <b>prioritise creators with a referral</b> from someone already on the roster.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MANIFESTO -->
+  <section class="manifesto">
+    <div class="wrap">
+      <div class="eyebrow aud-both">The belief</div>
+      <h2>Passion<br>first.</h2>
+      <p class="body">For too long, creators learned to perform love for the camera, only after the deal was already done. We put the passion first. By pairing creators with brands they already believe in, rather than brands with creators, the endorsement is real. We'd rather make nothing than fake it.</p>
+      <div class="sign">— twentytwo</div>
+    </div>
+  </section>
+
+  <!-- ABOUT + TEAM (combined) -->
+  <section id="about">
+    <div class="wrap">
+      <div class="sec-head reveal"><div class="eyebrow aud-both">About</div><h2 class="display-l">Built by a maker.</h2></div>
+      <div class="about-grid">
+        <div class="about-body reveal">
+          <p><b>twentytwo was founded by Matthew Peltier</b>, who built and ran an in-house film and audio team that delivered 300+ campaigns for brands from Lidl to LinkedIn, Vodafone to AXA.</p>
+          <p>That's the difference. We don't just broker deals, we come from production. We understand what makes content true on camera, because we've spent a decade making it. We've built the whole platform around the creator who means it.</p>
+          <p>North London roots, a deep love of music and culture, and a simple conviction: the work is better when the passion is real. <b>Passion first. Always.</b></p>
+        </div>
+        <div class="stats reveal">
+          <div class="stat"><div class="n" data-count="300" data-suffix="+">300+</div><div class="l">campaigns delivered</div></div>
+          <div class="stat"><div class="n">Micro→★</div><div class="l">creators, every tier</div></div>
+          <div class="stat"><div class="n">Top 6</div><div class="l">brands, chosen by you</div></div>
+        </div>
+      </div>
+
+      <div class="sec-head reveal" style="margin-top:clamp(48px,7vw,84px)"><div class="eyebrow aud-both">The team</div><h2 class="display-l">The founders.</h2></div>
+      <div class="founders">
+        <div class="founder reveal">
+          <span class="face"><span class="mono">OJ</span><img src="olivia-jones.jpg" alt="Olivia Jones" loading="lazy" onerror="this.remove()"></span>
+          <div>
+            <div class="nm">Olivia Jones</div>
+            <div class="role">Co-founder · Social &amp; influencer</div>
+            <p class="bio">Digital, social and influencer specialist, from Brands2Life.</p>
+            <a class="li" href="https://www.linkedin.com/in/olivia-jones-209854210/" target="_blank" rel="noopener">LinkedIn ↗</a>
+          </div>
+        </div>
+        <div class="founder reveal">
+          <span class="face"><span class="mono">MP</span><img src="matthew-peltier.jpg" alt="Matthew Peltier" loading="lazy" onerror="this.remove()"></span>
+          <div>
+            <div class="nm">Matthew Peltier</div>
+            <div class="role">Co-founder · Film &amp; production</div>
+            <p class="bio">Filmmaker. 20 years, 300+ campaigns, Lidl to Vodafone to Samsung.</p>
+            <a class="li" href="https://www.linkedin.com/in/matthewpeltier/" target="_blank" rel="noopener">LinkedIn ↗</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="contact" id="contact">
+    <div class="wrap reveal">
+      <div class="eyebrow aud-both">Get in touch</div>
+      <h2 class="display-l">Start with passion.</h2>
+      <p style="color:var(--bone-dim);max-width:520px;margin:20px 0 0">A creator ready to choose your six, or a brand that wants endorsements that mean it? Tell us who you love.</p>
+      <div class="row">
+        <a class="mail" href="mailto:Passion@supa.social">Passion@supa.social</a>
+      </div>
+      <div class="row">
+        <a class="btn" href="join.html">Join the waitlist</a>
+        <a class="btn btn-ghost" href="mailto:Passion@supa.social?subject=Work%20with%20us">Work with us</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- GIFT: a little something at the very bottom -->
+  <section id="ranking" class="gift">
     <div class="wrap">
       <div class="sec-head reveal">
-        <div class="eyebrow aud-both">For creators &amp; brands · the talent chart</div>
+        <span class="ps-tag">P.S. · one more thing</span>
+        <div class="eyebrow">A little gift, for reading this far</div>
         <h2 class="display-l">The talent chart.</h2>
         <p><b>We don't need to pretend to have talent we don't.</b> These are just some of the creators making waves and collaborating with brands. Not all work with us directly, but feel free to use this list as a resource as you look at potential talent for your campaigns.</p>
       </div>
@@ -466,112 +581,6 @@
           <span class="f">+ <b>brand affinity</b></span>
         </div>
         <a class="btn" href="join.html">Apply for the board</a>
-      </div>
-    </div>
-  </section>
-
-  <!-- PROOF BAND -->
-  <section class="proof">
-    <div class="wrap proof-grid reveal">
-      <div>
-        <div class="eyebrow aud-both">Why it works</div>
-        <div class="claim" style="margin-top:18px">Real affinity <em>outperforms</em> paid-for love.</div>
-        <p class="sub">Audiences can feel the difference. Endorsements that start with genuine passion earn the engagement that manufactured ones never will.</p>
-      </div>
-      <div class="vs">
-        <div class="col dim"><div class="k">Typical influencer post</div><div class="v">~1.9%</div></div>
-        <div class="arrow">→</div>
-        <div class="col hot"><div class="k">twentytwo creators</div><div class="v">7%+</div></div>
-      </div>
-    </div>
-    
-  </section>
-
-  <!-- BRAND PAYOFF -->
-  <section class="payoff" id="brands">
-    <div class="wrap reveal">
-      <div class="eyebrow aud-brand">For brands</div>
-      <h2>You don't search our talent.<br>You're told who chose you.</h2>
-      <p class="lead">No browsing a roster, no cold list of names for hire. We come to you with the creators who already named your brand in their top six. <b>The affinity exists before the conversation does.</b> That's the only endorsement worth buying.</p>
-      <div class="cards">
-        <div class="card"><div class="n">01</div><h3>Pre-qualified passion</h3><p>Every creator we bring you put your brand on their own list, before any fee was on the table.</p></div>
-        <div class="card"><div class="n">02</div><h3>A finished solution</h3><p>Built by a team that came from production, not a spreadsheet of handles. Ready to run.</p></div>
-        <div class="card"><div class="n">03</div><h3>Micro to household</h3><p>Belief scales where budget doesn't. We match you on conviction, at every tier.</p></div>
-      </div>
-      <div class="row">
-        <a class="btn btn-dark" href="#contact">Work with us</a>
-      </div>
-    </div>
-  </section>
-
-  <!-- MANIFESTO -->
-  <section class="manifesto">
-    <div class="wrap">
-      <div class="eyebrow aud-both">The belief</div>
-      <h2>Passion<br>first.</h2>
-      <p class="body">For too long, creators learned to perform love for the camera, only after the deal was already done. We put the passion first. By pairing creators with brands they already believe in, rather than brands with creators, the endorsement is real. We'd rather make nothing than fake it.</p>
-      <div class="sign">— twentytwo</div>
-    </div>
-  </section>
-
-  <!-- ABOUT -->
-  <section id="about">
-    <div class="wrap">
-      <div class="sec-head reveal"><div class="eyebrow aud-both">About</div><h2 class="display-l">Built by a maker.</h2></div>
-      <div class="about-grid">
-        <div class="about-body reveal">
-          <p><b>twentytwo was founded by Matthew Peltier</b>, who built and ran an in-house film and audio team that delivered 300+ campaigns for brands from Lidl to LinkedIn, Vodafone to AXA.</p>
-          <p>That's the difference. We don't just broker deals, we come from production. We understand what makes content true on camera, because we've spent a decade making it. We've built the whole platform around the creator who means it.</p>
-          <p>North London roots, a deep love of music and culture, and a simple conviction: the work is better when the passion is real. <b>Passion first. Always.</b></p>
-        </div>
-        <div class="stats reveal">
-          <div class="stat"><div class="n" data-count="300" data-suffix="+">300+</div><div class="l">campaigns delivered</div></div>
-          <div class="stat"><div class="n">Micro→★</div><div class="l">creators, every tier</div></div>
-          <div class="stat"><div class="n">Top 6</div><div class="l">brands, chosen by you</div></div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- TEAM -->
-  <section id="team">
-    <div class="wrap">
-      <div class="sec-head reveal"><div class="eyebrow aud-both">The team</div><h2 class="display-l">The founders.</h2></div>
-      <div class="founders">
-        <div class="founder reveal">
-          <span class="face"><span class="mono">OJ</span><img src="olivia-jones.jpg" alt="Olivia Jones" loading="lazy" onerror="this.remove()"></span>
-          <div>
-            <div class="nm">Olivia Jones</div>
-            <div class="role">Co-founder · Social &amp; influencer</div>
-            <p class="bio">Digital, social and influencer specialist, from Brands2Life.</p>
-            <a class="li" href="https://www.linkedin.com/in/olivia-jones-209854210/" target="_blank" rel="noopener">LinkedIn ↗</a>
-          </div>
-        </div>
-        <div class="founder reveal">
-          <span class="face"><span class="mono">MP</span><img src="matthew-peltier.jpg" alt="Matthew Peltier" loading="lazy" onerror="this.remove()"></span>
-          <div>
-            <div class="nm">Matthew Peltier</div>
-            <div class="role">Co-founder · Film &amp; production</div>
-            <p class="bio">Filmmaker. 20 years, 300+ campaigns, Lidl to Vodafone to Samsung.</p>
-            <a class="li" href="https://www.linkedin.com/in/matthewpeltier/" target="_blank" rel="noopener">LinkedIn ↗</a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- CONTACT -->
-  <section class="contact" id="contact">
-    <div class="wrap reveal">
-      <div class="eyebrow aud-both">Get in touch</div>
-      <h2 class="display-l">Start with passion.</h2>
-      <p style="color:var(--bone-dim);max-width:520px;margin:20px 0 0">A creator ready to choose your six, or a brand that wants endorsements that mean it? Tell us who you love.</p>
-      <div class="row">
-        <a class="mail" href="mailto:Passion@supa.social">Passion@supa.social</a>
-      </div>
-      <div class="row">
-        <a class="btn" href="join.html">Join the waitlist</a>
-        <a class="btn btn-ghost" href="mailto:Passion@supa.social?subject=Work%20with%20us">Work with us</a>
       </div>
     </div>
   </section>
